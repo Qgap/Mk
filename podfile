@@ -1,0 +1,12 @@
+target ‘LoanMarket’ do
+
+pod 'AFNetworking', '~> 3.0’
+pod 'SDWebImage', '~> 3.0'
+pod 'Masonry'
+pod 'SVProgressHUD'
+pod 'IQKeyboardManager', '~> 3.0'
+pod 'SSKeychain'
+pod 'pop'
+pod 'Reveal-SDK’,'~>4.0', :configurations => ['Debug']
+end
+
