@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A32405D1FC40762000664A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32405C1FC40762000664A0 /* MainViewController.m */; };
+		3A3240601FC4077E000664A0 /* LoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32405F1FC4077E000664A0 /* LoanViewController.m */; };
+		3A3240631FC40789000664A0 /* ApplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3240621FC40789000664A0 /* ApplyViewController.m */; };
+		3A3240661FC40794000664A0 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3240651FC40794000664A0 /* MineViewController.m */; };
+		3A32406D1FC41CF0000664A0 /* AdvertisingColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32406C1FC41CF0000664A0 /* AdvertisingColumn.m */; };
+		3A3240701FC42AEE000664A0 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32406F1FC42AEE000664A0 /* HomeCell.m */; };
 		3AB445361FC2818D0035E51C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445351FC2818D0035E51C /* AppDelegate.m */; };
 		3AB445391FC2818D0035E51C /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445381FC2818D0035E51C /* RegisterViewController.m */; };
 		3AB4453E1FC2818D0035E51C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB4453D1FC2818D0035E51C /* Assets.xcassets */; };
@@ -40,6 +46,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A32405A1FC3F230000664A0 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		3A32405B1FC40762000664A0 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		3A32405C1FC40762000664A0 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		3A32405E1FC4077E000664A0 /* LoanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoanViewController.h; sourceTree = "<group>"; };
+		3A32405F1FC4077E000664A0 /* LoanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoanViewController.m; sourceTree = "<group>"; };
+		3A3240611FC40789000664A0 /* ApplyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyViewController.h; sourceTree = "<group>"; };
+		3A3240621FC40789000664A0 /* ApplyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyViewController.m; sourceTree = "<group>"; };
+		3A3240641FC40794000664A0 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		3A3240651FC40794000664A0 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		3A32406B1FC41CF0000664A0 /* AdvertisingColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvertisingColumn.h; sourceTree = "<group>"; };
+		3A32406C1FC41CF0000664A0 /* AdvertisingColumn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvertisingColumn.m; sourceTree = "<group>"; };
+		3A32406E1FC42AEE000664A0 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		3A32406F1FC42AEE000664A0 /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		3AB445311FC2818C0035E51C /* LoanMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoanMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB445341FC2818C0035E51C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3AB445351FC2818D0035E51C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -99,6 +118,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A3240671FC40799000664A0 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				3AB445751FC2CF3E0035E51C /* HomeViewController.h */,
+				3AB445761FC2CF3E0035E51C /* HomeViewController.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		3A3240681FC407A1000664A0 /* Loan */ = {
+			isa = PBXGroup;
+			children = (
+				3A32405E1FC4077E000664A0 /* LoanViewController.h */,
+				3A32405F1FC4077E000664A0 /* LoanViewController.m */,
+			);
+			path = Loan;
+			sourceTree = "<group>";
+		};
+		3A3240691FC407A6000664A0 /* Apply */ = {
+			isa = PBXGroup;
+			children = (
+				3A3240611FC40789000664A0 /* ApplyViewController.h */,
+				3A3240621FC40789000664A0 /* ApplyViewController.m */,
+			);
+			path = Apply;
+			sourceTree = "<group>";
+		};
+		3A32406A1FC407AC000664A0 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				3A3240641FC40794000664A0 /* MineViewController.h */,
+				3A3240651FC40794000664A0 /* MineViewController.m */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
 		3AB445281FC2818C0035E51C = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +192,7 @@
 				3AB445781FC2CF600035E51C /* DataCenter.h */,
 				3AB445791FC2CF600035E51C /* DataCenter.m */,
 				3AB4457D1FC2D1660035E51C /* PrefixHeader.pch */,
+				3A32405A1FC3F230000664A0 /* Header.h */,
 			);
 			path = LoanMarket;
 			sourceTree = "<group>";
@@ -171,12 +227,16 @@
 		3AB445671FC2822B0035E51C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3A32406A1FC407AC000664A0 /* Mine */,
+				3A3240691FC407A6000664A0 /* Apply */,
+				3A3240681FC407A1000664A0 /* Loan */,
+				3A3240671FC40799000664A0 /* Home */,
 				3AB445371FC2818D0035E51C /* RegisterViewController.h */,
 				3AB445381FC2818D0035E51C /* RegisterViewController.m */,
 				3AB4456B1FC283320035E51C /* LoginViewController.h */,
 				3AB4456C1FC283320035E51C /* LoginViewController.m */,
-				3AB445751FC2CF3E0035E51C /* HomeViewController.h */,
-				3AB445761FC2CF3E0035E51C /* HomeViewController.m */,
+				3A32405B1FC40762000664A0 /* MainViewController.h */,
+				3A32405C1FC40762000664A0 /* MainViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,6 +244,8 @@
 		3AB445681FC282450035E51C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A32406E1FC42AEE000664A0 /* HomeCell.h */,
+				3A32406F1FC42AEE000664A0 /* HomeCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,6 +273,8 @@
 				3AB445731FC2CE9A0035E51C /* MZTimerLabel.m */,
 				3AB4457E1FC2D3220035E51C /* GQUIControl.h */,
 				3AB4457F1FC2D3220035E51C /* GQUIControl.m */,
+				3A32406B1FC41CF0000664A0 /* AdvertisingColumn.h */,
+				3A32406C1FC41CF0000664A0 /* AdvertisingColumn.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -435,11 +499,17 @@
 			files = (
 				3AB4456D1FC283320035E51C /* LoginViewController.m in Sources */,
 				3AB445741FC2CE9A0035E51C /* MZTimerLabel.m in Sources */,
+				3A3240661FC40794000664A0 /* MineViewController.m in Sources */,
 				3AB4457A1FC2CF600035E51C /* DataCenter.m in Sources */,
+				3A32405D1FC40762000664A0 /* MainViewController.m in Sources */,
 				3AB445801FC2D3220035E51C /* GQUIControl.m in Sources */,
+				3A3240631FC40789000664A0 /* ApplyViewController.m in Sources */,
+				3A3240601FC4077E000664A0 /* LoanViewController.m in Sources */,
+				3A32406D1FC41CF0000664A0 /* AdvertisingColumn.m in Sources */,
 				3AB445391FC2818D0035E51C /* RegisterViewController.m in Sources */,
 				3AB445701FC2CD330035E51C /* Validator.m in Sources */,
 				3AB445441FC2818D0035E51C /* main.m in Sources */,
+				3A3240701FC42AEE000664A0 /* HomeCell.m in Sources */,
 				3AB445771FC2CF3E0035E51C /* HomeViewController.m in Sources */,
 				3AB445361FC2818D0035E51C /* AppDelegate.m in Sources */,
 			);
@@ -587,13 +657,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				COPY_HEADERS_RUN_UNIFDEF = NO;
 				DEVELOPMENT_TEAM = 85369EBNDG;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/LoanMarket/PrefixHeader.pch";
 				INFOPLIST_FILE = LoanMarket/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = gq.LoanMarket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -603,13 +676,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				COPY_HEADERS_RUN_UNIFDEF = NO;
 				DEVELOPMENT_TEAM = 85369EBNDG;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/LoanMarket/PrefixHeader.pch";
 				INFOPLIST_FILE = LoanMarket/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = gq.LoanMarket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

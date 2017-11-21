@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RegisterViewController.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[RegisterViewController alloc] init];
+    self.window.rootViewController = [[MainViewController alloc] init];
     [self.window makeKeyAndVisible];
     
     return YES;

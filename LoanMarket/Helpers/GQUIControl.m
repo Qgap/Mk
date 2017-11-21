@@ -11,15 +11,25 @@
 
 @implementation GQUIControl
 
-//+ (UIImageView *)imageView {
-//    UIImageView *imageView = [[UIImageView alloc] init];
-////    imageView.contentMode =
-//
-//    return imageView;
-//}
++ (UIScrollView *)scrollViewWithFrame:(CGRect)frame
+                         contentSize:(CGSize)contentSize
+                             showVer:(BOOL)showVer
+                             showHor:(BOOL)showHor
+                            delegate:(id)Target
+        IStranslatesAutoresizingMask:(BOOL)ISmask {
+    
+    UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:frame];
+    scroll.contentSize = contentSize;
+    scroll.showsHorizontalScrollIndicator = showHor;
+    scroll.showsVerticalScrollIndicator = showVer;
+    scroll.bounces = NO;
+    scroll.pagingEnabled = YES;
+    scroll.translatesAutoresizingMaskIntoConstraints = ISmask;
+    scroll.delegate = Target;
+    return scroll;
+}
 
-
-+(CALayer *)layerWithFrame:(CGRect)frame borderColor:(UIColor *)color {
++ (CALayer *)layerWithFrame:(CGRect)frame borderColor:(UIColor *)color {
     
     CALayer *layer = [[CALayer alloc] init];
     layer.frame = frame;
@@ -28,7 +38,7 @@
 
 }
 
-+(UIButton *)buttonWithTitle:(NSString *)title
++ (UIButton *)buttonWithTitle:(NSString *)title
                   titleColor:(UIColor *)titleColor
                     textFont:(UIFont *)font {
     
@@ -39,42 +49,56 @@
     return button;
 }
 
-#pragma mark -Label
-
-+ (UILabel *)labelWithPlaceHolder:(NSString *)placeholder
-                         textFont:(UIFont *)font
++ (UILabel *)labelWithTextFont:(UIFont *)font
                         textColor:(UIColor *)textColor
                     textAlignment:(NSTextAlignment)textAlignment {
-    
-    return [self labelWithPlaceHolder:placeholder
-                             textFont:font
-                            textColor:textColor
-                        textAlignment:textAlignment
-                      placeHolderFont:nil
-                     placeHolderColor:nil];
-    
-}
-
-+ (UILabel *)labelWithPlaceHolder:(NSString *)placeholder
-                         textFont:(UIFont *)font
-                        textColor:(UIColor *)textColor
-                    textAlignment:(NSTextAlignment)textAlignment
-                  placeHolderFont:(UIFont *)placeholderFont
-                 placeHolderColor:(UIColor *)placeholderColor {
     
     UILabel *label = [[UILabel alloc] init];
     label.font = font;
     label.textColor = textColor;
     label.textAlignment = textAlignment;
+
+    return label;
+}
+
+#pragma mark - UITextField
+
++ (UITextField *)textFieldWithPlaceHolder:(NSString *)placeholder
+                                 textFont:(UIFont *)font
+                                textColor:(UIColor *)textColor
+                            textAlignment:(NSTextAlignment)textAlignment {
     
+   return [self textFieldWithPlaceHolder:placeholder
+                          textFont:font
+                         textColor:textColor
+                     textAlignment:textAlignment
+                   placeHolderFont:nil
+                  placeHolderColor:nil];
+    
+}
+
++ (UITextField *)textFieldWithPlaceHolder:(NSString *)placeholder
+                                  textFont:(UIFont *)font
+                                 textColor:(UIColor *)textColor
+                             textAlignment:(NSTextAlignment)textAlignment
+                           placeHolderFont:(UIFont *)placeholderFont
+                          placeHolderColor:(UIColor *)placeholderColor {
+    
+    UITextField *textField = [[UITextField alloc] init];
+    textField.font = font;
+    textField.textColor = textColor;
+    textField.textAlignment = textAlignment;
+    
+    if (placeholder) {
+        textField.placeholder = placeholder;
+    }
     if (placeholderFont) {
-        [label setValue:placeholderFont forKeyPath:@"_placeholderLabel.font"];
+        [textField setValue:placeholderFont forKeyPath:@"_placeholderLabel.font"];
     }
     if (placeholderColor) {
-        [label setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
+        [textField setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
     }
-    
-    return label;
+    return textField;
 }
 
 @end

@@ -9,6 +9,10 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-#improt "URLContants.h"
-
 #endif /* PrefixHeader_pch */
+
+#ifdef __OBJC__
+#import "URLContants.h"
+#import "Header.h"
+
+#endif
