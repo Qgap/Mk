@@ -118,6 +118,12 @@
     return self;
 }
 
-
+- (void)setupCellWithData:(id)data {
+    
+}
 
 @end
+
+
+
+
