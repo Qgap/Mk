@@ -11,6 +11,13 @@
 
 @implementation GQUIControl
 
++ (UIImageView *)imageViewContentModel:(UIViewContentMode)contentmode {
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.contentMode = contentmode;
+    return imageView;
+}
+
+
 + (UIScrollView *)scrollViewWithFrame:(CGRect)frame
                          contentSize:(CGSize)contentSize
                              showVer:(BOOL)showVer

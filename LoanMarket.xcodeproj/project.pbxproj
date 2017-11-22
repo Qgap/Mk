@@ -12,7 +12,7 @@
 		3A3240631FC40789000664A0 /* ApplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3240621FC40789000664A0 /* ApplyViewController.m */; };
 		3A3240661FC40794000664A0 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3240651FC40794000664A0 /* MineViewController.m */; };
 		3A32406D1FC41CF0000664A0 /* AdvertisingColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32406C1FC41CF0000664A0 /* AdvertisingColumn.m */; };
-		3A3240701FC42AEE000664A0 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32406F1FC42AEE000664A0 /* HomeCell.m */; };
+		3A3240701FC42AEE000664A0 /* HomeLoanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32406F1FC42AEE000664A0 /* HomeLoanCell.m */; };
 		3AB445361FC2818D0035E51C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445351FC2818D0035E51C /* AppDelegate.m */; };
 		3AB445391FC2818D0035E51C /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445381FC2818D0035E51C /* RegisterViewController.m */; };
 		3AB4453E1FC2818D0035E51C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB4453D1FC2818D0035E51C /* Assets.xcassets */; };
@@ -57,8 +57,8 @@
 		3A3240651FC40794000664A0 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		3A32406B1FC41CF0000664A0 /* AdvertisingColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvertisingColumn.h; sourceTree = "<group>"; };
 		3A32406C1FC41CF0000664A0 /* AdvertisingColumn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvertisingColumn.m; sourceTree = "<group>"; };
-		3A32406E1FC42AEE000664A0 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
-		3A32406F1FC42AEE000664A0 /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		3A32406E1FC42AEE000664A0 /* HomeLoanCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeLoanCell.h; sourceTree = "<group>"; };
+		3A32406F1FC42AEE000664A0 /* HomeLoanCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeLoanCell.m; sourceTree = "<group>"; };
 		3AB445311FC2818C0035E51C /* LoanMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoanMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB445341FC2818C0035E51C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3AB445351FC2818D0035E51C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -244,8 +244,8 @@
 		3AB445681FC282450035E51C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3A32406E1FC42AEE000664A0 /* HomeCell.h */,
-				3A32406F1FC42AEE000664A0 /* HomeCell.m */,
+				3A32406E1FC42AEE000664A0 /* HomeLoanCell.h */,
+				3A32406F1FC42AEE000664A0 /* HomeLoanCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -509,7 +509,7 @@
 				3AB445391FC2818D0035E51C /* RegisterViewController.m in Sources */,
 				3AB445701FC2CD330035E51C /* Validator.m in Sources */,
 				3AB445441FC2818D0035E51C /* main.m in Sources */,
-				3A3240701FC42AEE000664A0 /* HomeCell.m in Sources */,
+				3A3240701FC42AEE000664A0 /* HomeLoanCell.m in Sources */,
 				3AB445771FC2CF3E0035E51C /* HomeViewController.m in Sources */,
 				3AB445361FC2818D0035E51C /* AppDelegate.m in Sources */,
 			);

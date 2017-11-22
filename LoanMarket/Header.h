@@ -21,3 +21,9 @@
 
 #define RGB(r, g, b)                        [UIColor colorWithRed:(r)/255.f green:(g)/255.f blue:(b)/255.f alpha:1.f]
 
+#define grayColor RGB(154,154,154)
+#define orangeColor RGB(253,153,50)
+#define blackColor RGB(58,58,58)
+
+
+#define WS(weakSelf,self)  __weak __typeof(&*self)weakSelf = self;

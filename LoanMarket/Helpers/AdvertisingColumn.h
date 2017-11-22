@@ -10,6 +10,6 @@
 
 @interface AdvertisingColumn : UIView
 
-@property (nonatomic, copy)void (^adImageClick)(UITapGestureRecognizer *);
+@property (nonatomic, copy) void (^adImageClick)(UITapGestureRecognizer *tap);
 
 @end

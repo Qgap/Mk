@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomeCell : UITableViewCell
+@interface HomeLoanCell : UITableViewCell
 
 @end

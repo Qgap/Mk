@@ -11,6 +11,7 @@
 
 @interface GQUIControl : NSObject
 
++ (UIImageView *)imageViewContentModel:(UIViewContentMode)contentmode;
 
 + (UIScrollView *)scrollViewWithFrame:(CGRect)frame
                          contentSize:(CGSize)contentSize
