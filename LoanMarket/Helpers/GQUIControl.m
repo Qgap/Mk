@@ -95,7 +95,7 @@
     textField.font = font;
     textField.textColor = textColor;
     textField.textAlignment = textAlignment;
-    
+
     if (placeholder) {
         textField.placeholder = placeholder;
     }
@@ -105,7 +105,35 @@
     if (placeholderColor) {
         [textField setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
     }
+    
+    UIView *codeSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 30)];
+    textField.leftView = codeSpaceView;
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    
     return textField;
 }
+
++ (UITextField *)textFieldWithPlaceHolder:(NSString *)placeholder
+                                 textFont:(UIFont *)font
+                                textColor:(UIColor *)textColor
+                            textAlignment:(NSTextAlignment)textAlignment
+                          backgroundColor:(UIColor *)backgroundColor
+                              borderColor:(UIColor *)borderColor
+                              borderWidth:(CGFloat)borderWidth
+                             cornerRadius:(CGFloat)radius {
+    
+    UITextField *textField = [self textFieldWithPlaceHolder:placeholder
+                                                   textFont:font
+                                                  textColor:textColor
+                                              textAlignment:textAlignment
+                                            placeHolderFont:nil
+                                           placeHolderColor:nil];
+    textField.backgroundColor = backgroundColor;
+    textField.layer.borderColor = borderColor.CGColor;
+    textField.layer.borderWidth = borderWidth;
+    textField.layer.cornerRadius = radius;
+    return textField;
+}
+                                
 
 @end

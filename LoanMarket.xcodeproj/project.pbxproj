@@ -13,6 +13,10 @@
 		3A3240661FC40794000664A0 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3240651FC40794000664A0 /* MineViewController.m */; };
 		3A32406D1FC41CF0000664A0 /* AdvertisingColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32406C1FC41CF0000664A0 /* AdvertisingColumn.m */; };
 		3A3240701FC42AEE000664A0 /* HomeLoanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32406F1FC42AEE000664A0 /* HomeLoanCell.m */; };
+		3A6BFCF11FC6BB8F00E299AB /* PwdTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6BFCF01FC6BB8F00E299AB /* PwdTextView.m */; };
+		3A6BFCF41FC6BB9D00E299AB /* CodeLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6BFCF31FC6BB9D00E299AB /* CodeLoginView.m */; };
+		3A6BFCF71FC6C32500E299AB /* InputTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6BFCF61FC6C32500E299AB /* InputTextCell.m */; };
+		3A6BFCFA1FC6C36500E299AB /* ButtonTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6BFCF91FC6C36500E299AB /* ButtonTextCell.m */; };
 		3AB445361FC2818D0035E51C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445351FC2818D0035E51C /* AppDelegate.m */; };
 		3AB445391FC2818D0035E51C /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445381FC2818D0035E51C /* RegisterViewController.m */; };
 		3AB4453E1FC2818D0035E51C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB4453D1FC2818D0035E51C /* Assets.xcassets */; };
@@ -59,6 +63,14 @@
 		3A32406C1FC41CF0000664A0 /* AdvertisingColumn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvertisingColumn.m; sourceTree = "<group>"; };
 		3A32406E1FC42AEE000664A0 /* HomeLoanCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeLoanCell.h; sourceTree = "<group>"; };
 		3A32406F1FC42AEE000664A0 /* HomeLoanCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeLoanCell.m; sourceTree = "<group>"; };
+		3A6BFCEF1FC6BB8F00E299AB /* PwdTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PwdTextView.h; sourceTree = "<group>"; };
+		3A6BFCF01FC6BB8F00E299AB /* PwdTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PwdTextView.m; sourceTree = "<group>"; };
+		3A6BFCF21FC6BB9D00E299AB /* CodeLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeLoginView.h; sourceTree = "<group>"; };
+		3A6BFCF31FC6BB9D00E299AB /* CodeLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeLoginView.m; sourceTree = "<group>"; };
+		3A6BFCF51FC6C32500E299AB /* InputTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputTextCell.h; sourceTree = "<group>"; };
+		3A6BFCF61FC6C32500E299AB /* InputTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputTextCell.m; sourceTree = "<group>"; };
+		3A6BFCF81FC6C36500E299AB /* ButtonTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonTextCell.h; sourceTree = "<group>"; };
+		3A6BFCF91FC6C36500E299AB /* ButtonTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonTextCell.m; sourceTree = "<group>"; };
 		3AB445311FC2818C0035E51C /* LoanMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoanMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB445341FC2818C0035E51C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3AB445351FC2818D0035E51C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -123,6 +135,10 @@
 			children = (
 				3AB445751FC2CF3E0035E51C /* HomeViewController.h */,
 				3AB445761FC2CF3E0035E51C /* HomeViewController.m */,
+				3A6BFCF51FC6C32500E299AB /* InputTextCell.h */,
+				3A6BFCF61FC6C32500E299AB /* InputTextCell.m */,
+				3A6BFCF81FC6C36500E299AB /* ButtonTextCell.h */,
+				3A6BFCF91FC6C36500E299AB /* ButtonTextCell.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -246,6 +262,10 @@
 			children = (
 				3A32406E1FC42AEE000664A0 /* HomeLoanCell.h */,
 				3A32406F1FC42AEE000664A0 /* HomeLoanCell.m */,
+				3A6BFCEF1FC6BB8F00E299AB /* PwdTextView.h */,
+				3A6BFCF01FC6BB8F00E299AB /* PwdTextView.m */,
+				3A6BFCF21FC6BB9D00E299AB /* CodeLoginView.h */,
+				3A6BFCF31FC6BB9D00E299AB /* CodeLoginView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -500,6 +520,8 @@
 				3AB4456D1FC283320035E51C /* LoginViewController.m in Sources */,
 				3AB445741FC2CE9A0035E51C /* MZTimerLabel.m in Sources */,
 				3A3240661FC40794000664A0 /* MineViewController.m in Sources */,
+				3A6BFCF41FC6BB9D00E299AB /* CodeLoginView.m in Sources */,
+				3A6BFCFA1FC6C36500E299AB /* ButtonTextCell.m in Sources */,
 				3AB4457A1FC2CF600035E51C /* DataCenter.m in Sources */,
 				3A32405D1FC40762000664A0 /* MainViewController.m in Sources */,
 				3AB445801FC2D3220035E51C /* GQUIControl.m in Sources */,
@@ -507,6 +529,8 @@
 				3A3240601FC4077E000664A0 /* LoanViewController.m in Sources */,
 				3A32406D1FC41CF0000664A0 /* AdvertisingColumn.m in Sources */,
 				3AB445391FC2818D0035E51C /* RegisterViewController.m in Sources */,
+				3A6BFCF71FC6C32500E299AB /* InputTextCell.m in Sources */,
+				3A6BFCF11FC6BB8F00E299AB /* PwdTextView.m in Sources */,
 				3AB445701FC2CD330035E51C /* Validator.m in Sources */,
 				3AB445441FC2818D0035E51C /* main.m in Sources */,
 				3A3240701FC42AEE000664A0 /* HomeLoanCell.m in Sources */,

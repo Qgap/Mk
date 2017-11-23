@@ -24,6 +24,6 @@
 #define grayColor RGB(154,154,154)
 #define orangeColor RGB(253,153,50)
 #define blackColor RGB(58,58,58)
-
+#define themeColor UIColorFromRGB(0x5bd8ca)
 
 #define WS(weakSelf,self)  __weak __typeof(&*self)weakSelf = self;

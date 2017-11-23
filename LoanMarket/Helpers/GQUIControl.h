@@ -43,5 +43,14 @@
                           placeHolderFont:(UIFont *)placeholderFont
                          placeHolderColor:(UIColor *)placeholderColor;
 
++ (UITextField *)textFieldWithPlaceHolder:(NSString *)placeholder
+                                 textFont:(UIFont *)font
+                                textColor:(UIColor *)textColor
+                            textAlignment:(NSTextAlignment)textAlignment
+                          backgroundColor:(UIColor *)backgroundColor
+                              borderColor:(UIColor *)borderColor
+                              borderWidth:(CGFloat)borderWidth
+                             cornerRadius:(CGFloat)radius;
+
 
 @end

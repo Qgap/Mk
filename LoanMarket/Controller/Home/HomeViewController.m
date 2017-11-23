@@ -16,7 +16,7 @@ static NSString *Recommend = @"RECOMMEND";
 @interface HomeViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong)UITableView *tableView;
-@property (nonatomic, strong)AdvertisingColumn *adView;
+@property (nonatomic, strong)AdvertisingColumn *adView; 
 @property (nonatomic, strong)NSMutableArray *dataArray;
 @end
 
@@ -33,6 +33,8 @@ static NSString *Recommend = @"RECOMMEND";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.estimatedSectionFooterHeight = 0.f;
+    self.tableView.estimatedSectionHeaderHeight = 30;
     [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoan];
     [self.view addSubview:self.tableView];
     
@@ -68,9 +70,17 @@ static NSString *Recommend = @"RECOMMEND";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] init];
-    
+    view.backgroundColor = [UIColor redColor];
     return view;
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return 20;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
+    return 0.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
