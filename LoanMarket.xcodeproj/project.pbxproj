@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A08201A1FCBE1B6009EBE03 /* ApplyFormCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0820191FCBE1B6009EBE03 /* ApplyFormCell.m */; };
 		3A32405D1FC40762000664A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32405C1FC40762000664A0 /* MainViewController.m */; };
 		3A3240601FC4077E000664A0 /* LoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32405F1FC4077E000664A0 /* LoanViewController.m */; };
 		3A3240631FC40789000664A0 /* ApplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3240621FC40789000664A0 /* ApplyViewController.m */; };
@@ -51,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A0820181FCBE1B6009EBE03 /* ApplyFormCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyFormCell.h; sourceTree = "<group>"; };
+		3A0820191FCBE1B6009EBE03 /* ApplyFormCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyFormCell.m; sourceTree = "<group>"; };
 		3A32405A1FC3F230000664A0 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		3A32405B1FC40762000664A0 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		3A32405C1FC40762000664A0 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				3A6B30801FC971E1002D26B7 /* AunounceCell.m */,
 				3A6B30821FCAA074002D26B7 /* SectionHeadView.h */,
 				3A6B30831FCAA074002D26B7 /* SectionHeadView.m */,
+				3A0820181FCBE1B6009EBE03 /* ApplyFormCell.h */,
+				3A0820191FCBE1B6009EBE03 /* ApplyFormCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -537,6 +542,7 @@
 				3AB4457A1FC2CF600035E51C /* DataCenter.m in Sources */,
 				3A32405D1FC40762000664A0 /* MainViewController.m in Sources */,
 				3AB445801FC2D3220035E51C /* GQUIControl.m in Sources */,
+				3A08201A1FCBE1B6009EBE03 /* ApplyFormCell.m in Sources */,
 				3A3240631FC40789000664A0 /* ApplyViewController.m in Sources */,
 				3A3240601FC4077E000664A0 /* LoanViewController.m in Sources */,
 				3A32406D1FC41CF0000664A0 /* AdvertisingColumn.m in Sources */,
