@@ -26,4 +26,8 @@
 #define blackColor RGB(58,58,58)
 #define themeColor UIColorFromRGB(0x5bd8ca)
 
+#define null(string) (isEmptyStr(string)?@"":string)
+#define nullStr(string,defaultString) (isEmptyStr(string) ? defaultString : string)
+
+
 #define WS(weakSelf,self)  __weak __typeof(&*self)weakSelf = self;

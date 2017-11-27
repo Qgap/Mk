@@ -7,6 +7,7 @@
 //
 
 #import "ApplyViewController.h"
+#import "SectionHeadView.h"
 
 @interface ApplyViewController ()
 
@@ -16,7 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.title = @"助贷申请";
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -12,7 +12,7 @@
 //#import "ApplyViewController.h"
 //#import "MineViewController.h"
 
-@interface MainViewController ()
+@interface MainViewController () <UITabBarControllerDelegate>
 
 @end
 
@@ -20,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.delegate = self;
     
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x5bd8ca)];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16],
@@ -52,7 +54,6 @@
     }
     
     self.viewControllers = viewControllers;
-    
     
 }
 

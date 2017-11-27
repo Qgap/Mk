@@ -102,6 +102,7 @@
             
         }];
         
+        self.iconImageView.image = [UIImage imageNamed:@"defalut_icon"];
         
         self.titleLabel.text = @"急用钱";
         
@@ -124,6 +125,55 @@
 
 @end
 
+@interface HotRecommendCell ()
+
+@property (nonatomic, strong)NSMutableArray <UIImageView *> *iconImage;
+
+@end
+
+@implementation HotRecommendCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    if (self) {
+        
+        CGFloat hovGap = 15;
+        for ( int i = 0; i < 3; i ++) {
+            
+            UIButton *iconButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            
+            iconButton.frame = CGRectMake(hovGap, 10, 101*WIDTH_SCALE, 101*WIDTH_SCALE);
+            
+            [iconButton setBackgroundImage:[UIImage imageNamed:@"hot_recommand"]
+                                  forState:UIControlStateNormal];
+            
+            [iconButton addTarget:self
+                           action:@selector(recommendClick:)
+                 forControlEvents:UIControlEventTouchUpInside];
+            
+            iconButton.adjustsImageWhenHighlighted = NO;
+            
+            [self.contentView addSubview:iconButton];
+            
+            hovGap += WIDTH_SCALE * 122;
+            
+        }
+        
+//        UIView *bottomLine = [[UIView alloc] init];
+//        bottomLine.backgroundColor = grayColor;
+//        bottomLine.frame = CGRectMake(0, self.contentView.frame.size.height - 2, SCREEN_WIDTH, 2);
+//        [self.contentView addSubview:bottomLine];
+    
+    }
+    return self;
+}
+
+- (void)recommendClick:(UIButton *)sender {
+    
+}
+
+@end
 
 
 

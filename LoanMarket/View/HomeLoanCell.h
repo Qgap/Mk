@@ -11,3 +11,7 @@
 @interface HomeLoanCell : UITableViewCell
 
 @end
+
+@interface HotRecommendCell : UITableViewCell
+
+@end

@@ -32,18 +32,18 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     
     self.title = @"贷款搜索";
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+
     [self.view addSubview:self.tableView];
     [self setupHeadView];
 }
 
 - (void)setupHeadView {
     
-
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
     headView.backgroundColor = [UIColor whiteColor];
     CALayer *bottomLayer = [GQUIControl layerWithFrame:CGRectMake(0, 49.5, SCREEN_WIDTH, 0.5)
                                            borderColor:RGB(106, 106, 106)];
+    bottomLayer.backgroundColor = RGB(84, 84, 84).CGColor;
     [headView.layer addSublayer:bottomLayer];
     [self.view addSubview:headView];
     
@@ -128,12 +128,13 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, SCREEN_WIDTH, SCREEN_HEIGHT - 100) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, SCREEN_WIDTH, SCREEN_HEIGHT - 50 - 64 - 49) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:cellId];
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         
     }
     
@@ -156,11 +157,17 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     return 90;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 
 @end

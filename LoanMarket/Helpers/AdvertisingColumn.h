@@ -12,4 +12,7 @@
 
 @property (nonatomic, copy) void (^adImageClick)(UITapGestureRecognizer *tap);
 
+- (void)setArray:(NSArray *)imgArray;
+
 @end
+
