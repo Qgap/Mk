@@ -32,13 +32,15 @@ static NSInteger baseTag = 100;
         
         self.selectionText = [self unitTextFieldPlaceHolder:@""];
         self.selectionText.frame = CGRectMake(CGRectGetMaxX(self.titleLabel.frame) + 10, 5, 165 , 40);
-        self.selectionText.enabled = NO;
         
         self.arrowImage = [[UIImageView alloc] init];
         self.arrowImage.image = [UIImage imageNamed:@"arrow_down"];
         self.arrowImage.frame = CGRectMake(165 - 40, 0, 40, 40);
         self.arrowImage.contentMode = UIViewContentModeCenter;
         [self.selectionText addSubview:self.arrowImage];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSelector:)];
+        [self.selectionText addGestureRecognizer:tap];
         
         CALayer *lineLayer = [GQUIControl layerWithFrame:CGRectMake(0, 0, 1, 40) borderColor:UIColorFromRGB(0xbdbdbd)];
         lineLayer.borderWidth = 1;
@@ -55,6 +57,8 @@ static NSInteger baseTag = 100;
         
         self.manBtn.tag = baseTag + 20;
         self.manBtn.tag = baseTag + 30;
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return self;
@@ -71,10 +75,26 @@ static NSInteger baseTag = 100;
     }
 }
 
+- (void)showSelector:(UITapGestureRecognizer *)sender {
+    NSLog(@"sender :%ld",sender.view.tag);
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField.tag > baseTag) {
+        return NO;
+    }
+    return YES;
+}
+
+
 #pragma mark - Configure Cell
 
 - (void)setupCell:(NSArray *)dataArray indexPath:(NSIndexPath *)indexPath {
-    self.titleLabel.text = dataArray[indexPath.row][@"title"];
+    
+    NSString *title = dataArray[indexPath.row][@"title"];
+    self.titleLabel.text = title;
     self.inputText.placeholder = dataArray[indexPath.row][@"placeHolder"];
     
     NSString *type = dataArray[indexPath.row][@"type"];
@@ -84,6 +104,12 @@ static NSInteger baseTag = 100;
         self.selectionText.hidden = YES;
         self.genderView.hidden = YES;
         self.inputText.placeholder = dataArray[indexPath.row][@"placeHolder"];
+        
+        if ([title isEqualToString:@"姓名"]) {
+            self.inputText.keyboardType = UIKeyboardTypeDefault;
+        } else {
+            self.inputText.keyboardType = UIKeyboardTypePhonePad;
+        }
         
     } else if ([type isEqualToString:@"Selector"]) {
         self.inputText.hidden = YES;
@@ -127,11 +153,5 @@ static NSInteger baseTag = 100;
     [self.genderView addSubview:button];
     return button;
 }
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    NSLog(@"textField:%ld, text:%@",textField.tag,textField.text);
-    
-}
-
 
 @end

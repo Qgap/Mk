@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger,SelectType) {
     BooleanCheck
 };
 
-@interface ApplyViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ApplyViewController () <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (nonatomic, strong)UITableView *tableView;
 
@@ -29,6 +29,14 @@ typedef NS_ENUM(NSInteger,SelectType) {
 @end
 
 @implementation ApplyViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,6 +81,14 @@ typedef NS_ENUM(NSInteger,SelectType) {
     NSLog(@"array :%@",self.resultDataArray);
 }
 
+#pragma mark - Action 
+
+- (void)dismissKeyboard {
+    
+    [self.view endEditing:YES];
+}
+
+
 #pragma mark - UITableView
 
 - (UITableView *)tableView {
@@ -84,6 +100,10 @@ typedef NS_ENUM(NSInteger,SelectType) {
         _tableView.estimatedSectionHeaderHeight = 0.f;
         _tableView.estimatedRowHeight = 0.f;
         [_tableView registerClass:[ApplyFormCell class] forCellReuseIdentifier:@"CellId"];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [_tableView addGestureRecognizer:tap];
+        
         
         self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 85)];
         self.footerView.backgroundColor = [UIColor whiteColor];
@@ -113,7 +133,7 @@ typedef NS_ENUM(NSInteger,SelectType) {
     
     [cell setupCell:self.dataArray indexPath:indexPath];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 
