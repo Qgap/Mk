@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger,SelectType) {
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissKeyboard) name:kDismissKeyboard object:nil];
     }
     return self;
 }

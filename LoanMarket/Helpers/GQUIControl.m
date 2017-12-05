@@ -41,6 +41,7 @@
     CALayer *layer = [[CALayer alloc] init];
     layer.frame = frame;
     layer.borderColor = color.CGColor;
+    layer.backgroundColor = color.CGColor;
     return layer;
 
 }

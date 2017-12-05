@@ -10,6 +10,7 @@
 #import "GQUIControl.h"
 #import <Masonry.h>
 
+NSString *const kDismissKeyboard = @"DIMISSKEYBOARD";
 
 static NSInteger baseTag = 100;
 
@@ -55,8 +56,8 @@ static NSInteger baseTag = 100;
         self.womanBtn = [self buttonWithTitle:@"女" selected:NO];
         self.womanBtn.frame = CGRectMake(CGRectGetMaxX(self.manBtn.frame) + 10, 0, 40, 40);
         
-        self.manBtn.tag = baseTag + 20;
-        self.manBtn.tag = baseTag + 30;
+//        self.manBtn.tag = baseTag + 20;
+//        self.womanBtn.tag = baseTag + 30;
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
@@ -77,6 +78,7 @@ static NSInteger baseTag = 100;
 
 - (void)showSelector:(UITapGestureRecognizer *)sender {
     NSLog(@"sender :%ld",sender.view.tag);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDismissKeyboard object:nil];
 }
 
 #pragma mark - UITextFieldDelegate

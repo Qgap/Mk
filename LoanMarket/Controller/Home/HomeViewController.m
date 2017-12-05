@@ -11,6 +11,7 @@
 #import "HomeLoanCell.h"
 #import "AunounceCell.h"
 #import "SectionHeadView.h"
+#import "LoanAreaViewController.h"
 
 static NSString *AnuounceCell = @"AUNOUNCE";
 static NSString *HotLoanCell = @"HOTLOAN";
@@ -26,6 +27,12 @@ static NSString *RecommendCell = @"RECOMMEND";
 @end
 
 @implementation HomeViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -121,6 +128,10 @@ static NSString *RecommendCell = @"RECOMMEND";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    LoanAreaViewController *loan = [[LoanAreaViewController alloc] init];
+    loan.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:loan animated:YES];
+    
 }
 
 @end

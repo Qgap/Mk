@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3A08201A1FCBE1B6009EBE03 /* ApplyFormCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0820191FCBE1B6009EBE03 /* ApplyFormCell.m */; };
+		3A106B931FD2B28300EC1C47 /* LoanAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A106B921FD2B28300EC1C47 /* LoanAreaViewController.m */; };
+		3A106B961FD444C300EC1C47 /* LoanDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A106B951FD444C300EC1C47 /* LoanDetailCell.m */; };
 		3A32405D1FC40762000664A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32405C1FC40762000664A0 /* MainViewController.m */; };
 		3A3240601FC4077E000664A0 /* LoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A32405F1FC4077E000664A0 /* LoanViewController.m */; };
 		3A3240631FC40789000664A0 /* ApplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3240621FC40789000664A0 /* ApplyViewController.m */; };
@@ -54,6 +56,10 @@
 /* Begin PBXFileReference section */
 		3A0820181FCBE1B6009EBE03 /* ApplyFormCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyFormCell.h; sourceTree = "<group>"; };
 		3A0820191FCBE1B6009EBE03 /* ApplyFormCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyFormCell.m; sourceTree = "<group>"; };
+		3A106B911FD2B28300EC1C47 /* LoanAreaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoanAreaViewController.h; sourceTree = "<group>"; };
+		3A106B921FD2B28300EC1C47 /* LoanAreaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoanAreaViewController.m; sourceTree = "<group>"; };
+		3A106B941FD444C300EC1C47 /* LoanDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoanDetailCell.h; sourceTree = "<group>"; };
+		3A106B951FD444C300EC1C47 /* LoanDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoanDetailCell.m; sourceTree = "<group>"; };
 		3A32405A1FC3F230000664A0 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		3A32405B1FC40762000664A0 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		3A32405C1FC40762000664A0 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -150,6 +156,8 @@
 			children = (
 				3A32405E1FC4077E000664A0 /* LoanViewController.h */,
 				3A32405F1FC4077E000664A0 /* LoanViewController.m */,
+				3A106B911FD2B28300EC1C47 /* LoanAreaViewController.h */,
+				3A106B921FD2B28300EC1C47 /* LoanAreaViewController.m */,
 			);
 			path = Loan;
 			sourceTree = "<group>";
@@ -273,6 +281,8 @@
 				3A6B30831FCAA074002D26B7 /* SectionHeadView.m */,
 				3A0820181FCBE1B6009EBE03 /* ApplyFormCell.h */,
 				3A0820191FCBE1B6009EBE03 /* ApplyFormCell.m */,
+				3A106B941FD444C300EC1C47 /* LoanDetailCell.h */,
+				3A106B951FD444C300EC1C47 /* LoanDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -539,9 +549,11 @@
 				3AB445741FC2CE9A0035E51C /* MZTimerLabel.m in Sources */,
 				3A3240661FC40794000664A0 /* MineViewController.m in Sources */,
 				3A6BFCF41FC6BB9D00E299AB /* CodeLoginView.m in Sources */,
+				3A106B961FD444C300EC1C47 /* LoanDetailCell.m in Sources */,
 				3AB4457A1FC2CF600035E51C /* DataCenter.m in Sources */,
 				3A32405D1FC40762000664A0 /* MainViewController.m in Sources */,
 				3AB445801FC2D3220035E51C /* GQUIControl.m in Sources */,
+				3A106B931FD2B28300EC1C47 /* LoanAreaViewController.m in Sources */,
 				3A08201A1FCBE1B6009EBE03 /* ApplyFormCell.m in Sources */,
 				3A3240631FC40789000664A0 /* ApplyViewController.m in Sources */,
 				3A3240601FC4077E000664A0 /* LoanViewController.m in Sources */,

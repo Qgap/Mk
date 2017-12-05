@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+UIKIT_EXTERN NSString *const kDismissKeyboard;
+
 @interface ApplyFormCell : UITableViewCell
 
 @property (nonatomic, strong)UILabel *titleLabel;
