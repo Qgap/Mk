@@ -43,8 +43,8 @@
         self.lineLabel.backgroundColor = grayColor;
         [self.contentView addSubview:self.lineLabel];
         
-        self.contentScroll = [[UIScrollView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:self.contentScroll];
+//        self.contentScroll = [[UIScrollView alloc] initWithFrame:CGRectZero];
+//        [self.contentView addSubview:self.contentScroll];
         
         [self.tipLable mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.mas_equalTo(self.contentView);
@@ -62,6 +62,7 @@
         self.labelArray = [NSMutableArray arrayWithCapacity:4];
         
         self.contentScroll = [GQUIControl scrollViewWithFrame:CGRectMake(80, 0, SCREEN_WIDTH - 80, 50) contentSize:CGSizeZero showVer:NO showHor:NO delegate:self IStranslatesAutoresizingMask:NO];
+        self.contentScroll.scrollEnabled = NO;
         [self.contentView addSubview:self.contentScroll];
         
         self.cellHeight = 50;

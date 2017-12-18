@@ -126,7 +126,17 @@ static NSString *RecommendCell = @"RECOMMEND";
     }
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) return ;
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LoanAreaViewController *loan = [[LoanAreaViewController alloc] init];
     loan.hidesBottomBarWhenPushed = YES;

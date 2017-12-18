@@ -82,7 +82,6 @@
             [subImageView removeFromSuperview];
         }
         
-        
         for (int i = 0; i < count; i ++) {
             UIImageView *image = [[UIImageView alloc] init];
             
