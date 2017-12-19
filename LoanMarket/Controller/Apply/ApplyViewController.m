@@ -18,8 +18,6 @@ typedef NS_ENUM(NSInteger,SelectType) {
 
 @interface ApplyViewController () <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
-@property (nonatomic, strong)UITableView *tableView;
-
 @property (nonatomic, strong)NSArray *dataArray;
 
 @property (nonatomic, strong)UIView *footerView;
@@ -33,7 +31,6 @@ typedef NS_ENUM(NSInteger,SelectType) {
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissKeyboard) name:kDismissKeyboard object:nil];
     }
     return self;
 }
@@ -52,7 +49,7 @@ typedef NS_ENUM(NSInteger,SelectType) {
                        @{@"title":@"性别",@"type":@"booleanCheck",@"placeHolder":@""},
                        @{@"title":@"信用卡数量",@"type":@"Selector",@"placeHolder":@"请输入信用卡数量"},
                        @{@"title":@"号码使用时间",@"type":@"Selector",@"placeHolder":@"请选择使用时间"}
-                       ];
+                       ] ;
     
     self.resultDataArray = [NSMutableArray arrayWithCapacity:10];
     for (int i = 0; i<self.dataArray.count; i++) {
@@ -82,11 +79,6 @@ typedef NS_ENUM(NSInteger,SelectType) {
 }
 
 #pragma mark - Action 
-
-- (void)dismissKeyboard {
-    
-    [self.view endEditing:YES];
-}
 
 
 #pragma mark - UITableView
@@ -131,9 +123,7 @@ typedef NS_ENUM(NSInteger,SelectType) {
     
     cell.tag = 200 + indexPath.row;
     
-    [cell setupCell:self.dataArray indexPath:indexPath];
-    
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setupCell:self.dataArray indexPath:indexPath view:self.view];
     
     return cell;
 

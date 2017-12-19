@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class ApplyViewController;
+
 UIKIT_EXTERN NSString *const kDismissKeyboard;
 
 @interface ApplyFormCell : UITableViewCell
@@ -26,6 +28,8 @@ UIKIT_EXTERN NSString *const kDismissKeyboard;
 
 @property (nonatomic, strong)UIButton *womanBtn;
 
-- (void)setupCell:(NSArray *)dataArray indexPath:(NSIndexPath *)indexPath;
+- (void)setupCell:(NSArray *)dataArray indexPath:(NSIndexPath *)indexPath view:(UIView *)superView;
+
+- (ApplyViewController *)applyViewController;
 
 @end

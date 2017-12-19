@@ -9,13 +9,23 @@
 #import "ApplyFormCell.h"
 #import "GQUIControl.h"
 #import <Masonry.h>
+#import "ApplyViewController.h"
 
-NSString *const kDismissKeyboard = @"DIMISSKEYBOARD";
+typedef NS_ENUM(NSInteger,Selector) {
+    Period = 103,
+    Identity = 104,
+    City = 105,
+    CardNum = 107,
+    PhoneTime = 108
+};
 
 static NSInteger baseTag = 100;
 
-@interface ApplyFormCell () <UITextFieldDelegate>
+@interface ApplyFormCell () <UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong)UITableView *tableView;
+
+@property (nonatomic, strong)UIView *superView;
 @end
 
 @implementation ApplyFormCell
@@ -55,10 +65,7 @@ static NSInteger baseTag = 100;
         
         self.womanBtn = [self buttonWithTitle:@"女" selected:NO];
         self.womanBtn.frame = CGRectMake(CGRectGetMaxX(self.manBtn.frame) + 10, 0, 40, 40);
-        
-//        self.manBtn.tag = baseTag + 20;
-//        self.womanBtn.tag = baseTag + 30;
-        
+    
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -76,9 +83,75 @@ static NSInteger baseTag = 100;
     }
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId" forIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    tableView.hidden = YES;
+    self.selectionText.text = [NSString stringWithFormat:@"%ld",indexPath.row];
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
 - (void)showSelector:(UITapGestureRecognizer *)sender {
     NSLog(@"sender :%ld",sender.view.tag);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kDismissKeyboard object:nil];
+    
+    CGPoint touchPoint = [sender locationInView:self.superView];
+    NSLog(@"touch point :%@",NSStringFromCGPoint(touchPoint));
+
+    NSIndexPath *indexPath = [self.applyViewController.tableView indexPathForCell:self];
+    CGRect rectIndexPath = [self.applyViewController.tableView rectForRowAtIndexPath:indexPath];
+    CGRect rect = [self.applyViewController.tableView convertRect:rectIndexPath toView:self.applyViewController.view];
+    rect.origin.y += 64;
+    CGFloat up = rect.origin.y > SCREEN_HEIGHT  - CGRectGetMaxY(rect);
+    CGPoint showPoint = CGPointMake(SCREEN_WIDTH - 50, 60);
+    showPoint.y = up ? rect.origin.y:CGRectGetMaxY(rect);
+    
+    CGFloat y = showPoint.y + (up? - 10 : 10);
+ 
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, showPoint.y + 10, SCREEN_WIDTH - 20, 400) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
+    [self.applyViewController.view addSubview:self.tableView];
+    [self.applyViewController.view endEditing:YES];
+    
+    switch (sender.view.tag) {
+        case Period:
+            
+            break;
+        case Identity:
+            break;
+            
+        case CardNum:
+            break;
+        case City:
+            break;
+        case PhoneTime:
+            
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (ApplyViewController *)applyViewController {
+    id responder = self;
+    while (responder){
+        if ([responder isKindOfClass:[ApplyViewController class]]){
+            return responder;
+        }
+        responder = [responder nextResponder];
+    }
+    return nil;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -93,7 +166,7 @@ static NSInteger baseTag = 100;
 
 #pragma mark - Configure Cell
 
-- (void)setupCell:(NSArray *)dataArray indexPath:(NSIndexPath *)indexPath {
+- (void)setupCell:(NSArray *)dataArray indexPath:(NSIndexPath *)indexPath view:(UIView *)superView {
     
     NSString *title = dataArray[indexPath.row][@"title"];
     self.titleLabel.text = title;
