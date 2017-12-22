@@ -19,7 +19,8 @@ static NSString *const conditionCell = @"ConditionCell";
 @property (nonatomic, strong)NSArray *sectionTitleArray;
 @property (nonatomic, strong)NSArray *conditionArray;
 
-@property (nonatomic, strong)UIView *<#name#>;
+@property (nonatomic, strong)UIView *bottomView;
+@property (nonatomic, strong)UIButton *applyButton;
 @end
 
 @implementation LoanAreaViewController
@@ -105,6 +106,7 @@ static NSString *const conditionCell = @"ConditionCell";
     }
     return _tableView;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
