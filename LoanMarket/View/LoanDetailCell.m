@@ -8,6 +8,9 @@
 
 #import "LoanDetailCell.h"
 #import "GQUIControl.h"
+#import <Masonry.h>
+
+static CGFloat gapLeft = 15;
 
 @interface LoanDetailCell ()
 
@@ -79,6 +82,44 @@
     self.contentLabel.text = content;
     self.titleLabel.text = title;
     self.rightLayer.hidden = hidden;
+}
+
+
+@end
+
+
+@interface ConditionCell ()
+
+@end
+
+@implementation ConditionCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        UIImageView *dotImage = [[UIImageView alloc] init];
+        dotImage.image = [UIImage imageNamed:@"dot_list"];
+        [self.contentView addSubview:dotImage];
+        
+        self.titleLabel = [GQUIControl labelWithTextFont:[UIFont systemFontOfSize:14]
+                                               textColor:RGB(106, 106, 106)
+                                           textAlignment:NSTextAlignmentLeft];
+        [self.contentView addSubview:self.titleLabel];
+        
+        [dotImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left).offset(gapLeft);
+            make.size.mas_equalTo(CGSizeMake(5, 5));
+            make.centerY.mas_equalTo(self.contentView.mas_centerY);
+        }];
+        
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(dotImage.mas_right).offset(5);
+            make.right.mas_equalTo(self.contentView.mas_right).offset(-gapLeft);
+            make.centerY.mas_equalTo(self.contentView.mas_centerY);
+        }];
+    }
+    
+    return self;
 }
 
 @end

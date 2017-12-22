@@ -59,6 +59,8 @@ typedef NS_ENUM(NSInteger,SelectType) {
 }
 
 - (void)applyAction {
+    [self.view endEditing:YES];
+
     for (int i = 0; i< self.dataArray.count; i ++ ) {
         ApplyFormCell *cell = (ApplyFormCell *)[self.tableView viewWithTag:200 + i];
         
@@ -93,8 +95,8 @@ typedef NS_ENUM(NSInteger,SelectType) {
         _tableView.estimatedRowHeight = 0.f;
         [_tableView registerClass:[ApplyFormCell class] forCellReuseIdentifier:@"CellId"];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-        [_tableView addGestureRecognizer:tap];
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+//        [_tableView addGestureRecognizer:tap];
         
         
         self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 85)];

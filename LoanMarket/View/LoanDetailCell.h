@@ -17,3 +17,9 @@
 - (void)setupContent:(NSString *)content title:(NSString *)title rightLayerHidden:(BOOL)hidden;
 
 @end
+
+@interface ConditionCell : UITableViewCell
+
+@property (nonatomic, strong)UILabel *titleLabel;
+
+@end

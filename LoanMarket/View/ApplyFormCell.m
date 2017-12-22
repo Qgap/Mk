@@ -10,6 +10,7 @@
 #import "GQUIControl.h"
 #import <Masonry.h>
 #import "ApplyViewController.h"
+#import "MenuView.h"
 
 typedef NS_ENUM(NSInteger,Selector) {
     Period = 103,
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger,Selector) {
 
 static NSInteger baseTag = 100;
 
-@interface ApplyFormCell () <UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>
+@interface ApplyFormCell () <UITextFieldDelegate>
 
 @property (nonatomic, strong)UITableView *tableView;
 
@@ -83,24 +84,10 @@ static NSInteger baseTag = 100;
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId" forIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    tableView.hidden = YES;
-    self.selectionText.text = [NSString stringWithFormat:@"%ld",indexPath.row];
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
-}
-
 - (void)showSelector:(UITapGestureRecognizer *)sender {
+    
+    [self.applyViewController.view endEditing:YES];
+    
     NSLog(@"sender :%ld",sender.view.tag);
     
     CGPoint touchPoint = [sender locationInView:self.superView];
@@ -109,19 +96,17 @@ static NSInteger baseTag = 100;
     NSIndexPath *indexPath = [self.applyViewController.tableView indexPathForCell:self];
     CGRect rectIndexPath = [self.applyViewController.tableView rectForRowAtIndexPath:indexPath];
     CGRect rect = [self.applyViewController.tableView convertRect:rectIndexPath toView:self.applyViewController.view];
-    rect.origin.y += 64;
-    CGFloat up = rect.origin.y > SCREEN_HEIGHT  - CGRectGetMaxY(rect);
-    CGPoint showPoint = CGPointMake(SCREEN_WIDTH - 50, 60);
-    showPoint.y = up ? rect.origin.y:CGRectGetMaxY(rect);
+//    rect.origin.y += 64;
     
-    CGFloat y = showPoint.y + (up? - 10 : 10);
- 
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, showPoint.y + 10, SCREEN_WIDTH - 20, 400) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
-    [self.applyViewController.view addSubview:self.tableView];
-    [self.applyViewController.view endEditing:YES];
+    NSLog(@"rect :%@",NSStringFromCGRect(rect));
+    
+    NSArray *array = @[@"小学",@"初中",@"高中",@"大专",@"本科",@"研究生",@"留学生",@"文盲"];
+    MenuView *menuView = [[MenuView alloc] initWithFrame:rect withArray: array];
+    menuView.Selector = ^(NSString *text) {
+        self.selectionText.text = text;
+    };
+    
+    [self.applyViewController.view addSubview:menuView];
     
     switch (sender.view.tag) {
         case Period:
@@ -152,6 +137,10 @@ static NSInteger baseTag = 100;
         responder = [responder nextResponder];
     }
     return nil;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.applyViewController.view endEditing:YES];
 }
 
 #pragma mark - UITextFieldDelegate

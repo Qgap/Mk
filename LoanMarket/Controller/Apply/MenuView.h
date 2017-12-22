@@ -10,4 +10,7 @@
 
 @interface MenuView : UIView
 
+@property (nonatomic, copy)void (^Selector)(NSString *text);
+
+- (id)initWithFrame:(CGRect)frame withArray:(NSArray *)array;
 @end

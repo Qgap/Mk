@@ -10,6 +10,9 @@
 #import <Masonry.h>
 #import "GQUIControl.h"
 
+
+static NSInteger baseTag = 1099;
+
 @interface AunounceCell () <UIScrollViewDelegate>
 
 @property (nonatomic, strong)UILabel *tipLable;
@@ -111,6 +114,11 @@
             label.frame = CGRectMake(0, _cellHeight * i, labelWidth, _cellHeight);
         }
         [self.contentScroll addSubview:label];
+        
+        label.userInteractionEnabled = YES;
+        label.tag = baseTag + i;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick:)];
+        [label addGestureRecognizer:tap];
     }
     
     if (array.count > 1) {
@@ -145,6 +153,10 @@
     if (scrollView.contentOffset.y == 0) {
         scrollView.contentOffset = CGPointMake(0, _cellHeight *self.acountArray);
     }
+}
+
+- (void)labelClick:(UITapGestureRecognizer *)sender {
+    
 }
 
 @end

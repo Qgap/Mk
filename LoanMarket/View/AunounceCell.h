@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class HomeViewController;
+
 @interface AunounceCell : UITableViewCell
+
+@property (nonatomic, strong)HomeViewController *homeVC;
 
 - (void)setupAunounceScroll:(NSArray *)array;
 
