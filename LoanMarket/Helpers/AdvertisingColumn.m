@@ -82,7 +82,6 @@
             [subImageView removeFromSuperview];
         }
         
-        
         for (int i = 0; i < count; i ++) {
             UIImageView *image = [[UIImageView alloc] init];
             
@@ -97,7 +96,8 @@
             [image addGestureRecognizer:tap];
             tap.view.tag = 120 +i;
             image.contentMode = UIViewContentModeScaleAspectFit;
-            [image sd_setImageWithURL:[NSURL URLWithString:imgArray[i]] placeholderImage:[UIImage imageNamed:@"gary_head"]];
+//            [image sd_setImageWithURL:[NSURL URLWithString:imgArray[i]] placeholderImage:[UIImage imageNamed:@"gary_head"]];
+            image.image = [UIImage imageNamed:imgArray[i]];
             [self.adScroll addSubview:image];
         }
         
@@ -173,3 +173,4 @@
 }
 
 @end
+

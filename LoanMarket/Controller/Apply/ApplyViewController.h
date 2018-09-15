@@ -10,4 +10,6 @@
 
 @interface ApplyViewController : UIViewController
 
+@property (nonatomic, strong)UITableView *tableView;
+
 @end

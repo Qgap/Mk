@@ -12,7 +12,7 @@
 //#import "ApplyViewController.h"
 //#import "MineViewController.h"
 
-@interface MainViewController ()
+@interface MainViewController () <UITabBarControllerDelegate>
 
 @end
 
@@ -21,9 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.delegate = self;
+    
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x5bd8ca)];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16],
                                                            NSForegroundColorAttributeName:[UIColor whiteColor]}];
+
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-SCREEN_WIDTH, 0)
+                                                         forBarMetrics:UIBarMetricsDefault];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f],
                                                         NSForegroundColorAttributeName : UIColorFromRGB(0x05b5f1)
@@ -52,7 +58,6 @@
     }
     
     self.viewControllers = viewControllers;
-    
     
 }
 
