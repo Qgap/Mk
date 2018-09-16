@@ -43,15 +43,17 @@ static CGFloat headHeight = 278;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"个人中心";
+    self.navigationItem.title = @"个人中心";
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    self.dataArray = @[@{@"image":@"person_info",@"title":@"个人信息修改"},
-                       @{@"image":@"help_center",@"title":@"帮助中心"},
-                       @{@"image":@"business",@"title":@"商务合作"},
-                       @{@"image":@"setting",@"title":@"设置"}];
+    self.dataArray = @[@[@{@"image":@"card_mine",@"title":@"我要办卡"},
+                       @{@"image":@"loan_mine",@"title":@"我要贷款"},
+                       @{@"image":@"raise_mine",@"title":@"我要提额"}],
+                       @[@{@"image":@"guide_mine",@"title":@"新手指南"},
+                         @{@"image":@"service_mine",@"title":@"我的客服"}]
+                       ];
     
     
     [self.view addSubview:self.tableView];
@@ -67,7 +69,7 @@ static CGFloat headHeight = 278;
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellId];
         
         _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 20;
+        _tableView.estimatedSectionHeaderHeight = 10;
         _tableView.estimatedSectionFooterHeight = 0;
         
         self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, headHeight)];
@@ -136,13 +138,26 @@ static CGFloat headHeight = 278;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId
                                                             forIndexPath:indexPath];
     
-    cell.imageView.image = [UIImage imageNamed:self.dataArray[indexPath.row][@"image"]];
-    cell.textLabel.text = self.dataArray[indexPath.row][@"title"];
+    cell.imageView.image = [UIImage imageNamed:self.dataArray[indexPath.section][indexPath.row][@"image"]];
+    cell.textLabel.text = self.dataArray[indexPath.section][indexPath.row][@"title"];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.dataArray[section] count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+  
+    return tableView.sectionHeaderHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

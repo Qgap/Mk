@@ -30,7 +30,7 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"贷款搜索";
+    self.navigationItem.title = @"贷款搜索";
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     [self.view addSubview:self.tableView];

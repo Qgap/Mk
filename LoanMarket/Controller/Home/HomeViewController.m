@@ -15,8 +15,17 @@
 
 static NSString *AnuounceCell = @"AUNOUNCE";
 static NSString *HotLoanCell = @"HOTLOAN";
-static NSString *RecommendCell = @"RECOMMEND";
+//static NSString *RecommendCell = @"RECOMMEND";
+static NSString *LoanTypeCellID = @"LOANTYPE";
+static NSString *FunctionCell = @"FUNCTION";
 
+
+typedef NS_ENUM(NSInteger,SectionType) {
+    AunounceSection,
+    LoanTypeSection,
+    FunctionTypeSection,
+    HotRecommendSection
+};
 
 @interface HomeViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -46,10 +55,12 @@ static NSString *RecommendCell = @"RECOMMEND";
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.estimatedSectionFooterHeight = 0.f;
-    self.tableView.estimatedSectionHeaderHeight = 30;
+    self.tableView.estimatedSectionHeaderHeight = 10.f;
     [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoanCell];
     [self.tableView registerClass:[AunounceCell class] forCellReuseIdentifier:AnuounceCell];
-    [self.tableView registerClass:[HotRecommendCell class] forCellReuseIdentifier:RecommendCell];
+    [self.tableView registerClass:[LoanTypeCell class] forCellReuseIdentifier:LoanTypeCellID];
+    [self.tableView registerClass:[FunctionAreaCell class] forCellReuseIdentifier:FunctionCell];
+//    [self.tableView registerClass:[HotRecommendCell class] forCellReuseIdentifier:RecommendCell];
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:self.tableView];
     
@@ -72,55 +83,73 @@ static NSString *RecommendCell = @"RECOMMEND";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == AunounceSection) {
         AunounceCell *cell = [tableView dequeueReusableCellWithIdentifier:AnuounceCell forIndexPath:indexPath];
         [cell setupAunounceScroll:@[@"上善若水",@"恭喜高青中奖500万",@"17620362405",@"人有善念，天必佑之"]];
         return cell;
-    } else if (indexPath.section == 1) {
-        HotRecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:RecommendCell forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    } else if (indexPath.section == LoanTypeSection) {
+        
+        LoanTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:LoanTypeCellID];
+        cell.loanTypeButton = ^(UIButton *sender) {
+            NSLog(@"button tag :%ld",sender.tag);
+        };
         return cell;
+        
+//        HotRecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:RecommendCell forIndexPath:indexPath];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        return cell;
+    } else if (indexPath.section == FunctionTypeSection){
+        FunctionAreaCell *cell = [tableView dequeueReusableCellWithIdentifier:FunctionCell];
+        
+        return cell;
+        
     } else {
         HomeLoanCell *cell = [tableView dequeueReusableCellWithIdentifier:HotLoanCell forIndexPath:indexPath];
-        
         return cell;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == HotRecommendSection) {
         return 20;
     }
     return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    SectionHeadView *view = [[SectionHeadView alloc] init];
-    view.titleLabel.text = @"热门贷款";
-    return view;
+    
+    if (section == HotRecommendSection) {
+        SectionHeadView *view = [[SectionHeadView alloc] init];
+        view.titleLabel.text = @"热门贷款";
+        return view;
+    }
+    return nil;
+    
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0;
+    if (section == HotRecommendSection) {
+        return 44;
     }
-    return 44;
+    return tableView.sectionHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-    return 0.f;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 50;
-    } else if (indexPath.section == 1){
-        return 125 * WIDTH_SCALE;
+    } else if (indexPath.section == 1) {
+        return 80 * WIDTH_SCALE;
+    } else if (indexPath.section == FunctionTypeSection) {
+        return 69 * WIDTH_SCALE;
     } else {
         return 90;
     }

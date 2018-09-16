@@ -175,5 +175,133 @@
 
 @end
 
+#pragma mark - LoanTypeCell
+
+@interface LoanTypeCell ()
+
+@end
+
+@implementation LoanTypeCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    if (self) {
+        [self initUI];
+    }
+    
+    return self;
+}
+
+- (void)initUI {
+    NSArray *titleArray = @[@"身份证贷",@"信用卡贷",@"大额贷",@"抵押贷"];
+    NSArray *iconArray = @[@"idCard_loan",@"credit_loan",@"large_loan",@"mortgage_loan"];
+    
+    for (int i = 0; i < titleArray.count; i ++ ) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(SCREEN_WIDTH / 4.0 * i, 0, SCREEN_WIDTH / 4.0, 80);
+        [button addTarget:self action:@selector(loanTypeAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag = i;
+        [self.contentView addSubview:button];
+        
+        UIImageView *iconImageView = [GQUIControl imageViewContentModel:UIViewContentModeScaleAspectFit];
+        iconImageView.image = [UIImage imageNamed:iconArray[i]];
+        [button addSubview:iconImageView];
+        
+        UILabel *titleLabel = [GQUIControl labelWithTextFont:Font14 textColor:blackColor textAlignment:NSTextAlignmentCenter];
+        titleLabel.text = titleArray[i];
+        [button addSubview:titleLabel];
+        
+        titleLabel.frame = CGRectMake(0, 50, SCREEN_WIDTH / 4.0, 20);
+        
+        [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(27, 20));
+            make.centerX.mas_equalTo(button.mas_centerX);
+            make.top.mas_equalTo(button.mas_top).offset(18);
+        }];
+        
+      
+    }
+}
+
+- (void)loanTypeAction:(UIButton *)sender {
+    if (self.loanTypeButton) {
+        self.loanTypeButton(sender);
+    }
+}
+
+@end
+
+#pragma mark - FunctionAreaCell
+
+@interface FunctionAreaCell ()
+
+@end
+
+@implementation FunctionAreaCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    if (self) {
+        [self initUI];
+    }
+    
+    return self;
+}
+
+- (void)initUI {
+    NSArray *titleArray = @[@"贷款大全",@"办信用卡"];
+    NSArray *descriptionArray = @[@"汇集各类网贷",@"下卡快额度高"];
+    NSArray *iconArray = @[@"allLoan_icon",@"apply_card"];
+    
+    for (int i = 0; i < titleArray.count; i ++ ) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(SCREEN_WIDTH / 2.0 * i, 0, SCREEN_WIDTH / 2.0, 69);
+//        [button addTarget:self action:@selector(loanTypeAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag = i;
+        [self.contentView addSubview:button];
+        
+        UIImageView *iconImageView = [GQUIControl imageViewContentModel:UIViewContentModeScaleAspectFit];
+        iconImageView.image = [UIImage imageNamed:iconArray[i]];
+        [button addSubview:iconImageView];
+        
+        UILabel *titleLabel = [GQUIControl labelWithTextFont:Font14 textColor:blackColor textAlignment:NSTextAlignmentLeft];
+        titleLabel.text = titleArray[i];
+        [button addSubview:titleLabel];
+        
+        UILabel *desLabel = [GQUIControl labelWithTextFont:Font13 textColor:grayColor textAlignment:NSTextAlignmentLeft];
+        desLabel.text = descriptionArray[i];
+        [button addSubview:desLabel];
+        
+        if (i == 0) {
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2.0 - 0.5, 0, 0.5, 69 * WIDTH_SCALE)];
+            lineView.backgroundColor = grayColor;
+            [button addSubview:lineView];
+        }
+        
+        [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(35, 33));
+            make.centerY.mas_equalTo(button.mas_centerY);
+            make.left.mas_equalTo(button.mas_left).offset(30 * WIDTH_SCALE);
+        }];
+        
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(iconImageView.mas_top);
+            make.left.mas_equalTo(iconImageView.mas_right).offset(15);
+            make.right.mas_equalTo(button.mas_right);
+        }];
+        
+        [desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(titleLabel.mas_bottom).offset(5);
+            make.left.mas_equalTo(titleLabel.mas_left);
+            make.right.mas_equalTo(button.mas_right);
+        }];
+        
+    }
+}
+
+
+@end
 
 

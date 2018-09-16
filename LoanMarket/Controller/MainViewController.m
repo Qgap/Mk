@@ -35,13 +35,13 @@
                                                         NSForegroundColorAttributeName : UIColorFromRGB(0x05b5f1)
                                                         } forState:UIControlStateSelected];
     
-    NSArray *titleArray = @[@"首页",@"贷款",@"申请",@"我的"];
-    NSArray *normalImage = @[@"home_normal",@"loan_normal",@"apply_normal",@"mine_normal"];
-    NSArray *selectImage = @[@"home_select",@"loan_select",@"apply_select",@"mine_select"];
+    NSArray *titleArray = @[@"首页",@"贷款",@"办卡",@"我的"];
+    NSArray *normalImage = @[@"home_normal",@"loan_normal",@"card_normal",@"mine_normal"];
+    NSArray *selectImage = @[@"home_select",@"loan_select",@"card_select",@"mine_select"];
     
     NSArray *vcName = @[@"HomeViewController",
                         @"LoanViewController",
-                        @"ApplyViewController",
+                        @"ApplyCardViewController",
                         @"MineViewController"];
     
     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithCapacity:4];

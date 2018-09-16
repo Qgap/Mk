@@ -69,7 +69,7 @@ static CGFloat kItemHeight = 52.0;
 }
 
 - (void)layoutTableView {
-    NSInteger itemCountMax = isIphone4 ? 4: 5;
+    NSInteger itemCountMax = IPHONE_4 ? 4: 5;
     
     CGFloat tableViewH = (self.dataArray.count <= itemCountMax ? self.dataArray.count: itemCountMax) * 52.0;
     

@@ -14,5 +14,7 @@
 #ifdef __OBJC__
 #import "URLContants.h"
 #import "Header.h"
+#import "GQUIControl.h"
+#import "UIConstants.h"
 
 #endif
