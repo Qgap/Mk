@@ -25,6 +25,8 @@
 
 #define black_Color [UIColor colorWithRed:52.0/255.f green:53.0/255.f blue:55.0/255.f alpha:1.f]
 #define gray_Color [UIColor colorWithRed:145/255.f green:149/255.f blue:153/255.f alpha:1.f]
+#define black_light RGB(65,67,69)
+
 #define grayColor RGB(154,154,154)
 #define orangeColor RGB(253,153,50)
 #define blackColor RGB(58,58,58)

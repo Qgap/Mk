@@ -9,7 +9,9 @@
 #import "LoanAreaViewController.h"
 #import "LoanDetailCell.h"
 #import "SectionHeadView.h"
+#import "LoanAreaCell.h"
 
+static NSString *const firstCell = @"FIRSTCELL";
 static NSString *const detailCell = @"DetailCell";
 static NSString *const conditionCell = @"ConditionCell";
 
@@ -65,9 +67,16 @@ static NSString *const conditionCell = @"ConditionCell";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     if (indexPath.section == 0) {
-        LoanDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCell forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        
+        if (indexPath.row == 0) {
+            LoanAreaCell *cell = [tableView dequeueReusableCellWithIdentifier:firstCell];
+            
+            return cell;
+        } else {
+            LoanDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCell forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
     } else {
         ConditionCell *cell = [tableView dequeueReusableCellWithIdentifier:conditionCell forIndexPath:indexPath];
         cell.titleLabel.text = self.conditionArray[indexPath.section][indexPath.row];
@@ -80,7 +89,7 @@ static NSString *const conditionCell = @"ConditionCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 1;
+        return 4;
     } else {
         return [self.conditionArray[section] count];
     }
@@ -92,7 +101,9 @@ static NSString *const conditionCell = @"ConditionCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 120;
+        NSArray *heightArray = @[@"82",@"60",@"42",@"130"];
+        
+        return [heightArray[indexPath.row] integerValue] * WIDTH_SCALE;
     } else
     return 35;
 }
@@ -123,6 +134,7 @@ static NSString *const conditionCell = @"ConditionCell";
         _tableView.estimatedSectionFooterHeight = 0.f;
         _tableView.estimatedSectionHeaderHeight = 0.f;
         _tableView.allowsSelection = NO;
+        [_tableView registerClass:[LoanAreaCell class] forCellReuseIdentifier:firstCell];
         [_tableView registerClass:[LoanDetailCell class] forCellReuseIdentifier:detailCell];
         [_tableView registerClass:[ConditionCell class] forCellReuseIdentifier:conditionCell];
     }

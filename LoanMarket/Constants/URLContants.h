@@ -9,9 +9,13 @@
 #ifndef URLContants_h
 #define URLContants_h
 
-#define RegisterURL @""
-#define LoginURL  @""
-#define GetCodeURL   @""
+#define register @"/login/register"
+#define loginURL  @"/login/checkPassword"
+#define getCodeURL   @""
+#define userInfoURL @"/user/findUserbase"
+#define checkCodeURL @"/login/checkVerifyCode"
+#define bankList    @"/bank/showBankCardList"
+
 
 
 #endif /* URLContants_h */

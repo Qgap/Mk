@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger,SectionType) {
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.estimatedSectionFooterHeight = 0.f;
-    self.tableView.estimatedSectionHeaderHeight = 10.f;
+    self.tableView.estimatedSectionHeaderHeight = 0.f;
     [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoanCell];
     [self.tableView registerClass:[AunounceCell class] forCellReuseIdentifier:AnuounceCell];
     [self.tableView registerClass:[LoanTypeCell class] forCellReuseIdentifier:LoanTypeCellID];
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger,SectionType) {
     if (section == HotRecommendSection) {
         return 44;
     }
-    return tableView.sectionHeaderHeight;
+    return 0.1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {

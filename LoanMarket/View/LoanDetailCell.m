@@ -14,6 +14,7 @@ static CGFloat gapLeft = 15;
 
 @interface LoanDetailCell ()
 
+@property(nonatomic,strong)NSMutableArray <LabelView *> *labelViewArray;
 @end
 
 @implementation LoanDetailCell
@@ -21,21 +22,40 @@ static CGFloat gapLeft = 15;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
-        NSArray *contentArray = @[@"14天",@"3000元",@"1小时",@"6%"];
-        NSArray *titleArray = @[@"平均期限",@"平均额度",@"平均用时",@"月利率"];
-        for (int i = 0; i < 2; i ++ ) {
-            for (int j = 0; j < 4; j++) {
-                LabelView *labelView = [[LabelView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 4.0 * j, 60 *i, SCREEN_WIDTH / 4.0, 60)];
-                [self.contentView addSubview:labelView];
-                [labelView setupContent:contentArray[j] title:titleArray[j] rightLayerHidden:j == 3 ? YES : NO];
-            }
-        }
+        [self initUI];
+     
         
     }
     return self;
     
 }
+
+- (void)initUI {
+    NSArray *contentArray = @[@"14天",@"3000元",@"1小时",@"6%"];
+    NSArray *titleArray = @[@"平均期限",@"平均额度",@"平均用时",@"月利率"];
+    self.labelViewArray = [NSMutableArray arrayWithCapacity:10];
+    
+    for (int i = 0; i < 2; i ++ ) {
+        for (int j = 0; j < 4; j++) {
+            LabelView *labelView = [[LabelView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 4.0 * j, 60 *i, SCREEN_WIDTH / 4.0, 60)];
+            [self.contentView addSubview:labelView];
+            [self.labelViewArray addObject:labelView];
+            
+            [labelView setupContent:contentArray[j] title:titleArray[j] rightLayerHidden:j == 3 ? YES : NO];
+        }
+    }
+    
+    UIView *backgroundView = [[UIView alloc] init];
+//    backgroundView.backgroundColor = RGB(<#r#>, <#g#>, <#b#>)
+    [self.contentView addSubview:backgroundView];
+    
+    UILabel *tipLabel = [GQUIControl labelWithTextFont:Font11 textColor:black_Color textAlignment:NSTextAlignmentLeft];
+    tipLabel.text = @"不看征信，手机就贷";
+    [backgroundView addSubview:tipLabel];
+    
+    
+}
+
 @end
 
 
@@ -71,8 +91,8 @@ static CGFloat gapLeft = 15;
         CALayer *topLayer = [GQUIControl layerWithFrame:CGRectMake(0, 0, width, 0.5) borderColor:RGB(106, 106, 106)];
         [self.layer addSublayer:topLayer];
         
-        self.rightLayer = [GQUIControl layerWithFrame:CGRectMake(width -0.5, 0, 0.5, height) borderColor:RGB(106, 106, 106)];
-        [self.layer addSublayer:self.rightLayer];
+//        self.rightLayer = [GQUIControl layerWithFrame:CGRectMake(width -0.5, 0, 0.5, height) borderColor:RGB(106, 106, 106)];
+//        [self.layer addSublayer:self.rightLayer];
         
     }
     return self;
@@ -86,6 +106,9 @@ static CGFloat gapLeft = 15;
 
 
 @end
+
+
+
 
 
 @interface ConditionCell ()
