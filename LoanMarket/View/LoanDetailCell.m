@@ -35,21 +35,21 @@ static CGFloat gapLeft = 15;
     NSArray *titleArray = @[@"平均期限",@"平均额度",@"平均用时",@"月利率"];
     self.labelViewArray = [NSMutableArray arrayWithCapacity:10];
     
-    for (int i = 0; i < 2; i ++ ) {
+//    for (int i = 0; i < 2; i ++ ) {
         for (int j = 0; j < 4; j++) {
-            LabelView *labelView = [[LabelView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 4.0 * j, 60 *i, SCREEN_WIDTH / 4.0, 60)];
+            LabelView *labelView = [[LabelView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 4.0 * j, 0, SCREEN_WIDTH / 4.0, 60)];
             [self.contentView addSubview:labelView];
             [self.labelViewArray addObject:labelView];
             
             [labelView setupContent:contentArray[j] title:titleArray[j] rightLayerHidden:j == 3 ? YES : NO];
         }
-    }
+//    }
     
-    UIView *backgroundView = [[UIView alloc] init];
-//    backgroundView.backgroundColor = RGB(<#r#>, <#g#>, <#b#>)
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 42)];
+    backgroundView.backgroundColor = RGB(205,240,236);
     [self.contentView addSubview:backgroundView];
-    
-    UILabel *tipLabel = [GQUIControl labelWithTextFont:Font11 textColor:black_Color textAlignment:NSTextAlignmentLeft];
+    UILabel *tipLabel = [GQUIControl labelWithTextFont:Font14 textColor:RGB(20,200,179) textAlignment:NSTextAlignmentLeft];
+    tipLabel.frame = CGRectMake(15 * WIDTH_SCALE, 0, SCREEN_WIDTH - 30 * WIDTH_SCALE, 42);
     tipLabel.text = @"不看征信，手机就贷";
     [backgroundView addSubview:tipLabel];
     

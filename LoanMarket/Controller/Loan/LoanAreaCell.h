@@ -12,4 +12,5 @@
 
 @end
 
-
+@interface GuideConditionCell : UITableViewCell
+@end

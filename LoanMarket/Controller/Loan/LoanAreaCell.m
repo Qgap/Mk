@@ -93,4 +93,54 @@
 
 @end
 
+@interface GuideConditionCell ()
+
+@end
+
+@implementation GuideConditionCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        
+        [self initUI];
+        
+    }
+    return self;
+    
+}
+
+- (void)initUI {
+    NSArray *typeArray = @[@"电商账号",@"芝麻分",@"信用卡",@"手机认证",@"征信报告"];
+    NSArray *iconArray = @[@"apply_icon",@"register_icon",@"info_icon",@"review_icon"];
+    NSArray *stepArray = @[@"申请贷款",@"注册/登录",@"完善资料",@"审核放款"];
+    float labelWidth = 10 * WIDTH_SCALE;
+    
+    for (int i = 0; i<typeArray.count; i ++) {
+        UILabel *label = [GQUIControl labelWithTextFont:Font14 textColor:black_Color textAlignment:NSTextAlignmentCenter];
+        label.text = typeArray[i];
+        [self.contentView addSubview:label];
+        label.layer.borderWidth = 1;
+        label.layer.cornerRadius = 12;
+        label.layer.borderColor = RGB(189,189,189).CGColor;
+     
+        CGSize size = [typeArray[i] sizeWithAttributes:@{NSFontAttributeName:Font14}];
+        label.frame = CGRectMake(labelWidth, 10, size.width + 15 *WIDTH_SCALE, 26);
+        
+        labelWidth = CGRectGetMaxX(label.frame) + 4;
+    }
+    
+    for (int i = 0; i < iconArray.count; i ++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:iconArray[i]]];
+        [self.contentView addSubview:imageView];
+        
+        imageView.frame = CGRectMake(26 * WIDTH_SCALE, 26, 50 * WIDTH_SCALE, 50*WIDTH_SCALE);
+        
+        UIImageView *arrowImage = [[UIImageView alloc] init];
+        [self.contentView addSubview:arrowImage];
+    }
+}
+
+@end
+
 

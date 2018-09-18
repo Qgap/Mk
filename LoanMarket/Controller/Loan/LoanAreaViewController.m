@@ -13,6 +13,7 @@
 
 static NSString *const firstCell = @"FIRSTCELL";
 static NSString *const detailCell = @"DetailCell";
+static NSString *const guideCell = @"GuideCell";
 static NSString *const conditionCell = @"ConditionCell";
 
 @interface LoanAreaViewController () <UITableViewDelegate,UITableViewDataSource>
@@ -72,9 +73,13 @@ static NSString *const conditionCell = @"ConditionCell";
             LoanAreaCell *cell = [tableView dequeueReusableCellWithIdentifier:firstCell];
             
             return cell;
-        } else {
+        } else if (indexPath.row == 1) {
             LoanDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCell forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        } else {
+            GuideConditionCell *cell = [tableView dequeueReusableCellWithIdentifier:guideCell];
+            
             return cell;
         }
     } else {
@@ -89,7 +94,7 @@ static NSString *const conditionCell = @"ConditionCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 4;
+        return 3;
     } else {
         return [self.conditionArray[section] count];
     }
@@ -101,7 +106,7 @@ static NSString *const conditionCell = @"ConditionCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        NSArray *heightArray = @[@"82",@"60",@"42",@"130"];
+        NSArray *heightArray = @[@"82",@"102",@"130"];
         
         return [heightArray[indexPath.row] integerValue] * WIDTH_SCALE;
     } else
@@ -136,6 +141,7 @@ static NSString *const conditionCell = @"ConditionCell";
         _tableView.allowsSelection = NO;
         [_tableView registerClass:[LoanAreaCell class] forCellReuseIdentifier:firstCell];
         [_tableView registerClass:[LoanDetailCell class] forCellReuseIdentifier:detailCell];
+        [_tableView registerClass:[GuideConditionCell class] forCellReuseIdentifier:guideCell];
         [_tableView registerClass:[ConditionCell class] forCellReuseIdentifier:conditionCell];
     }
     return _tableView;
