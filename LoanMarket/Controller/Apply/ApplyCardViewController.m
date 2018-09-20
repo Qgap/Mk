@@ -9,13 +9,15 @@
 #import "ApplyCardViewController.h"
 #import "ApplyCardCell.h"
 #import "CardListModel.h"
+#import "Request.h"
 
 static NSString *const cellId = @"CardListCell";
 
-
 @interface ApplyCardViewController ()<UITableViewDelegate,UITableViewDataSource>
+
 @property (nonatomic,strong)UITableView *tableView;
-@property (nonatomic,strong)NSMutableArray *dataArray;
+@property (nonatomic,strong)NSArray *dataArray;
+
 @end
 
 @implementation ApplyCardViewController
@@ -24,9 +26,29 @@ static NSString *const cellId = @"CardListCell";
     [super viewDidLoad];
     
     self.navigationItem.title = @"办卡";
-    self.dataArray = [NSMutableArray arrayWithCapacity:10];
+//    self.dataArray = [NSMutableArray arrayWithCapacity:10];
     
     [self.view addSubview:self.tableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self loadRequest];
+}
+
+- (void)loadRequest {
+    [SVProgressHUD show];
+    [Request postURL:bankList params:nil completion:^(BOOL success, id responseObject, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (success) {
+//            id data = responseObject[@"data"];
+            
+            self.dataArray = [NSArray yy_modelArrayWithClass:[CardListModel class] json:responseObject[@"data"]];
+            
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (UITableView *)tableView {
@@ -35,6 +57,7 @@ static NSString *const cellId = @"CardListCell";
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerClass:[ApplyCardCell class] forCellReuseIdentifier:cellId];
+        _tableView.tableFooterView = [[UIView alloc] init];
     }
     
     return _tableView;
@@ -43,11 +66,13 @@ static NSString *const cellId = @"CardListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ApplyCardCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     
+    [cell configureCell:self.dataArray[indexPath.row]];
+    
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

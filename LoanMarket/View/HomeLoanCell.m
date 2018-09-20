@@ -10,6 +10,7 @@
 #import <UIImageView+WebCache.h>
 #import <Masonry.h>
 #import "GQUIControl.h"
+#import "ProductModel.h"
 
 @interface HomeLoanCell ()
 
@@ -102,26 +103,31 @@
             
         }];
         
-        self.iconImageView.image = [UIImage imageNamed:@"defalut_icon"];
+//        self.iconImageView.image = [UIImage imageNamed:@"defalut_icon"];
         
-        self.titleLabel.text = @"急用钱";
+//        self.titleLabel.text = @"急用钱";
+//
+//        self.desLabel.text = @"0抵押，2000闪现到账";
+//
+//        self.loanLabel.text = @"贷款额度";
+//
+//        self.loanNumLabel.text = @"  500～2000 ";
+//
+//        self.rateLabel.text = @"0.03%";
         
-        self.desLabel.text = @"0抵押，2000闪现到账";
-        
-        self.loanLabel.text = @"贷款额度";
-        
-        self.loanNumLabel.text = @"  500～2000 ";
-        
-        self.rateLabel.text = @"0.03%";
-        
-        self.rateDesLabel.text = @"日利率";
+        self.rateDesLabel.text = @"利率";
     }
     return self;
 }
 
-- (void)setupCellWithData:(id)data {
-    
+- (void)configureCell:(ProductModel *)model {
+    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.logoUrl] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
+    self.titleLabel.text = model.productName;
+    self.rateLabel.text = model.interestComprehensive;
+    self.loanNumLabel.text = model.quotaAvg;
+    self.desLabel.text = model.slogan;
 }
+
 
 @end
 

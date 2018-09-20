@@ -8,6 +8,9 @@
 
 #import "DataCenter.h"
 
+static NSString *const token = @"X-TOKEN";
+static NSString *const phone = @"Phone";
+
 @implementation DataCenter
 
 + (instancetype)sharedInstance {
@@ -25,11 +28,25 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+        NSString *userToken = [[NSUserDefaults standardUserDefaults] valueForKey:token];
+        if (userToken && userToken.length > 0) {
+            self.userToken = userToken;
+        }
         
     }
     
     return self;
+}
+
+- (void)loginSucceedWithData:(id)data {
+    self.userToken = data[@"token"];
+    self.phoneNO = data[@"phoneNo"];
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:self.userToken forKey:token];
+    [userDefault setObject:self.phoneNO forKey:phone];
+    [userDefault synchronize];
+    
 }
 
 @end

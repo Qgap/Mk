@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class CardListModel;
+
 @interface ApplyCardCell : UITableViewCell
+
+- (void)configureCell:(CardListModel *)model;
 
 @end

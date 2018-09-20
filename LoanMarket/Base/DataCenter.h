@@ -7,10 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking.h>
+
 
 @interface DataCenter : NSObject
 
-@property (nonatomic, strong)AFHTTPSessionManager *sessionManager;
++ (instancetype)sharedInstance;
+
+@property(nonatomic,copy)NSString *userToken;
+@property(nonatomic,copy)NSString *phoneNO;
+
+- (void)loginSucceedWithData:(id)data;
 
 @end

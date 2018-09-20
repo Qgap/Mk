@@ -14,6 +14,8 @@
 #import "LoginViewController.h"
 #import "Validator.h"
 #import <SVProgressHUD.h>
+#import "Request.h"
+#import "DataCenter.h"
 
 static CGFloat padding_Hor = 37;
 
@@ -59,6 +61,18 @@ static CGFloat lineHeight = 40;
     self.timeInterval = 61;
     self.getCodeButton.enabled = NO;
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
+    
+    [SVProgressHUD show];
+    [Request postURL:getCodeURL params:@{@"phoneNo":self.phoneText.text} completion:^(BOOL success, id responseObject, NSError *error) {
+        [SVProgressHUD dismiss];
+        
+        if (success) {
+            [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
+        } else {
+            [SVProgressHUD showInfoWithStatus:error.domain];
+        }
+    }];
+    
 }
 
 - (void)countDown:(NSTimer *)timer {
@@ -112,6 +126,24 @@ static CGFloat lineHeight = 40;
         [SVProgressHUD showInfoWithStatus:@"注册成功"];
     }
     
+    NSDictionary *params = @{@"phoneNo":self.phoneText.text,
+                             @"verifyCode":self.codeText.text,
+                             @"password":self.pwdText.text
+                             };
+    
+    [SVProgressHUD show];
+    [Request postURL:registerURL params:params completion:^(BOOL success, id responseObject, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (success) {
+            [[DataCenter sharedInstance] loginSucceedWithData:responseObject[@"data"]];
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        } else {
+            [SVProgressHUD showInfoWithStatus:error.domain];
+        }
+    }];
+    
 }
 
 - (void)agreeProtocol {
@@ -119,11 +151,11 @@ static CGFloat lineHeight = 40;
 }
 
 - (void)textFieldsChange:(UITextField *)sender {
-    if ([Validator isValidateMobile:self.phoneText.text]) {
-        self.getCodeButton.enabled = YES;
-    } else {
-        self.getCodeButton.enabled = NO;
-    }
+//    if (self.phoneText.text.length == 11) {
+//        self.getCodeButton.enabled = YES;
+//    } else {
+//        self.getCodeButton.enabled = NO;
+//    }
     
     if (self.phoneText.text.length > 0 &&self.codeText.text.length > 0 && self.pwdText.text.length > 0 && self.secondPwdText.text.length > 0) {
         self.registerBtn.enabled = YES;

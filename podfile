@@ -1,5 +1,6 @@
 target ‘LoanMarket’ do
 
+pod 'YYModel'
 pod 'AFNetworking', '~> 3.0’
 pod 'SDWebImage', '~> 3.0'
 pod 'Masonry'
@@ -9,5 +10,7 @@ pod 'SSKeychain'
 pod 'pop'
 pod 'TTTAttributedLabel'
 pod 'Reveal-SDK’,'~>4.0', :configurations => ['Debug']
+pod 'SystemServices'
+
 end
 

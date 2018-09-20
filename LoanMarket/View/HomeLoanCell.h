@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class ProductModel;
 
 
 @interface HomeLoanCell : UITableViewCell
+
+- (void)configureCell:(ProductModel *)model;
 
 @end
 

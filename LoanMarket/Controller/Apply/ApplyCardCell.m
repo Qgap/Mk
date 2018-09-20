@@ -9,6 +9,7 @@
 #import "ApplyCardCell.h"
 #import "CardListModel.h"
 #import <Masonry.h>
+#import <UIImageView+WebCache.h>
 
 @interface ApplyCardCell ()
 @property (nonatomic,strong)UIImageView *iconImage;
@@ -40,7 +41,7 @@
     [self.iconImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentView.mas_left).offset(15 * WIDTH_SCALE);
         make.top.mas_equalTo(self.contentView.mas_top).offset(19 * WIDTH_SCALE);
-        make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(19 * WIDTH_SCALE);
+        make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-19 * WIDTH_SCALE);
         make.width.mas_equalTo(104 * WIDTH_SCALE);
     }];
     
@@ -56,12 +57,15 @@
         make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(10 * WIDTH_SCALE);
     }];
     
-    self.titleLabel.text = @"浦发银行信用卡";
-    self.detailLabel.text = @"白金卡 免年费";
+//    self.titleLabel.text = @"浦发银行信用卡";
+//    self.detailLabel.text = @"白金卡 免年费";
 }
 
 - (void)configureCell:(CardListModel *)model {
+    self.titleLabel.text = model.bankName;
+    self.detailLabel.text = model.bankBanner;
     
+    [self.iconImage sd_setImageWithURL:[NSURL URLWithString:model.bankIconUrl] placeholderImage:nil];
 }
 
 @end

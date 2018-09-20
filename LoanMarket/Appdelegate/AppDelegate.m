@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import "MainViewController.h"
 #import "LoginViewController.h"
+#import "DataCenter.h"
 
 @interface AppDelegate ()
 
@@ -22,9 +23,20 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[MainViewController alloc] init];
-//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+    self.mainVC = [[MainViewController alloc] init];
+    self.window.rootViewController = self.mainVC;
+
+    
     [self.window makeKeyAndVisible];
+    
+    if (![DataCenter sharedInstance].userToken ) {
+        dispatch_main_sync_safe(^{
+            
+            UINavigationController *registerVC = [[UINavigationController alloc] initWithRootViewController:[[RegisterViewController alloc] init]];
+            [self.mainVC presentViewController:registerVC animated:YES completion:nil];
+        });
+        
+    }
     
     return YES;
 }

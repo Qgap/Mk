@@ -12,6 +12,7 @@
 #import "AunounceCell.h"
 #import "SectionHeadView.h"
 #import "LoanAreaViewController.h"
+#import "Request.h"
 
 static NSString *AnuounceCell = @"AUNOUNCE";
 static NSString *HotLoanCell = @"HOTLOAN";
@@ -37,12 +38,6 @@ typedef NS_ENUM(NSInteger,SectionType) {
 
 @implementation HomeViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -50,31 +45,22 @@ typedef NS_ENUM(NSInteger,SectionType) {
     
     self.dataArray = [NSMutableArray arrayWithCapacity:10];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.estimatedSectionFooterHeight = 0.f;
-    self.tableView.estimatedSectionHeaderHeight = 0.f;
-    [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoanCell];
-    [self.tableView registerClass:[AunounceCell class] forCellReuseIdentifier:AnuounceCell];
-    [self.tableView registerClass:[LoanTypeCell class] forCellReuseIdentifier:LoanTypeCellID];
-    [self.tableView registerClass:[FunctionAreaCell class] forCellReuseIdentifier:FunctionCell];
-//    [self.tableView registerClass:[HotRecommendCell class] forCellReuseIdentifier:RecommendCell];
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self.view addSubview:self.tableView];
+    [self initUI];
     
-    self.adView = [[AdvertisingColumn alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150)];
     
-    [self.adView setArray:@[@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg"]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    [self loadRequest];
     
-    WS(weakSelf, self);
-    self.adView.adImageClick = ^(UITapGestureRecognizer *tap) {
-        [weakSelf adImageClick:tap];
-    };
-    
-    self.tableView.tableHeaderView = self.adView;
-    
+}
+
+- (void)loadRequest {
+    [Request postURL:bankList params:nil completion:^(BOOL success, id responseObject, NSError *error) {
+        NSLog(@"response :%@",responseObject);
+    }];
 }
 
 - (void)adImageClick:(UITapGestureRecognizer *)sender {
@@ -171,6 +157,33 @@ typedef NS_ENUM(NSInteger,SectionType) {
     loan.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:loan animated:YES];
     
+}
+
+- (void)initUI {
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.estimatedSectionFooterHeight = 0.f;
+    self.tableView.estimatedSectionHeaderHeight = 0.f;
+    [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoanCell];
+    [self.tableView registerClass:[AunounceCell class] forCellReuseIdentifier:AnuounceCell];
+    [self.tableView registerClass:[LoanTypeCell class] forCellReuseIdentifier:LoanTypeCellID];
+    [self.tableView registerClass:[FunctionAreaCell class] forCellReuseIdentifier:FunctionCell];
+    //    [self.tableView registerClass:[HotRecommendCell class] forCellReuseIdentifier:RecommendCell];
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self.view addSubview:self.tableView];
+    
+    self.adView = [[AdvertisingColumn alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150)];
+    
+    [self.adView setArray:@[@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg"]];
+    
+    WS(weakSelf, self);
+    self.adView.adImageClick = ^(UITapGestureRecognizer *tap) {
+        [weakSelf adImageClick:tap];
+    };
+    
+    self.tableView.tableHeaderView = self.adView;
 }
 
 @end

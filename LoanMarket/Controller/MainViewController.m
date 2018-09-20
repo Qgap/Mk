@@ -11,6 +11,9 @@
 //#import "LoanViewController.h"
 //#import "ApplyViewController.h"
 //#import "MineViewController.h"
+#import "DataCenter.h"
+#import "RegisterViewController.h"
+
 
 @interface MainViewController () <UITabBarControllerDelegate>
 
@@ -59,7 +62,16 @@
     
     self.viewControllers = viewControllers;
     
+   
+    
 }
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+   
+}
+
 
 - (UINavigationController *)viewController:(Class)vc
                                      title:(NSString *)title
