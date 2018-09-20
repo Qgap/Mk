@@ -11,6 +11,8 @@
 #import <Masonry.h>
 #import "GQUIControl.h"
 #import "ProductModel.h"
+#import "AppDelegate.h"
+#import "DataCenter.h"
 
 @interface HomeLoanCell ()
 
@@ -52,7 +54,7 @@
                                              textAlignment:NSTextAlignmentLeft];
         self.loanNumLabel.layer.borderColor = orangeColor.CGColor;
         self.loanNumLabel.layer.borderWidth = 0.5;
-        self.loanNumLabel.layer.cornerRadius = 5;
+        self.loanNumLabel.layer.cornerRadius = 10;
         [self.contentView addSubview:self.loanNumLabel];
         
         self.rateLabel = [GQUIControl labelWithTextFont:[UIFont systemFontOfSize:13]
@@ -77,31 +79,37 @@
             make.top.mas_equalTo(self.contentView.mas_top).offset(10);
         }];
         
-        [self.desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.titleLabel.mas_left);
-            make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(5);
-        }];
-        
-        [self.loanLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.titleLabel.mas_left);
-            make.top.mas_equalTo(self.desLabel.mas_bottom).offset(5);
-        }];
-        
-        [self.loanNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.loanLabel.mas_right).offset(2);
-            make.top.mas_equalTo(self.desLabel.mas_bottom).offset(5);
-        }];
-        
         [self.rateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
             make.top.mas_equalTo(self.contentView.mas_top).offset(20);
+            make.width.mas_greaterThanOrEqualTo(55);
         }];
         
         [self.rateDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
             make.top.mas_equalTo(self.rateLabel.mas_bottom).offset(5);
+        }];
+        
+        [self.desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.titleLabel.mas_left);
+            make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(5);
+            make.right.mas_equalTo(self.rateLabel.mas_left);
             
         }];
+        
+        [self.loanLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.titleLabel.mas_left);
+            make.top.mas_equalTo(self.desLabel.mas_bottom).offset(5);
+            make.centerY.mas_equalTo(self.loanNumLabel.mas_centerY);
+        }];
+        
+        [self.loanNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.loanLabel.mas_right).offset(2);
+            make.top.mas_equalTo(self.desLabel.mas_bottom).offset(5);
+            make.height.mas_equalTo(20);
+        }];
+        
+   
         
 //        self.iconImageView.image = [UIImage imageNamed:@"defalut_icon"];
         
@@ -109,11 +117,11 @@
 //
 //        self.desLabel.text = @"0抵押，2000闪现到账";
 //
-//        self.loanLabel.text = @"贷款额度";
+        self.loanLabel.text = @"贷款额度";
 //
 //        self.loanNumLabel.text = @"  500～2000 ";
 //
-//        self.rateLabel.text = @"0.03%";
+//        self.rateLabel.text = @"0.0003%";
         
         self.rateDesLabel.text = @"利率";
     }
@@ -124,7 +132,8 @@
     [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.logoUrl] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     self.titleLabel.text = model.productName;
     self.rateLabel.text = model.interestComprehensive;
-    self.loanNumLabel.text = model.quotaAvg;
+//    self.loanNumLabel.text = model.quotaAvg;
+    self.loanNumLabel.text = [NSString stringWithFormat:@"    %@    ",model.quotaAvg];
     self.desLabel.text = model.slogan;
 }
 
@@ -231,9 +240,15 @@
 }
 
 - (void)loanTypeAction:(UIButton *)sender {
-    if (self.loanTypeButton) {
-        self.loanTypeButton(sender);
-    }
+//    if (self.loanTypeButton) {
+//        self.loanTypeButton(sender);
+//    }
+    
+    
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    appdelegate.mainVC.selectedIndex = 1;
+    
 }
 
 @end
@@ -264,7 +279,7 @@
     for (int i = 0; i < titleArray.count; i ++ ) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(SCREEN_WIDTH / 2.0 * i, 0, SCREEN_WIDTH / 2.0, 69);
-//        [button addTarget:self action:@selector(loanTypeAction:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(functionClickAction:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = i;
         [self.contentView addSubview:button];
         
@@ -307,6 +322,19 @@
     }
 }
 
+- (void)functionClickAction:(UIButton *)sender {
+
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if (sender.tag == 0) {
+        
+        appdelegate.mainVC.selectedIndex = 1;
+    } else {
+        appdelegate.mainVC.selectedIndex = 2;
+    }
+    
+  
+}
 
 @end
 

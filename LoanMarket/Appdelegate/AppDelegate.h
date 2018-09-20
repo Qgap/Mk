@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainViewController.h"
 
-@class MainViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

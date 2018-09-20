@@ -1,6 +1,5 @@
 //
 //  AdvertisingColumn.m
-//  LoanMarket
 //
 //  Created by gap on 2017/11/21.
 //  Copyright © 2017年 gq. All rights reserved.
@@ -31,11 +30,12 @@
     if (self) {
         
         self.adScroll = [GQUIControl scrollViewWithFrame:frame
-                                               contentSize:CGSizeZero
-                                                   showVer:NO
-                                                   showHor:NO
-                                                  delegate:self
-                              IStranslatesAutoresizingMask:NO];
+                                             contentSize:CGSizeZero
+                                                 showVer:NO
+                                                 showHor:NO
+                                                delegate:self
+                            IStranslatesAutoresizingMask:NO];
+        
         
         self.scrollerHeight = frame.size.height;
         self.imageArr = [NSMutableArray array];
@@ -95,14 +95,14 @@
             [tap setNumberOfTapsRequired:1];
             [image addGestureRecognizer:tap];
             tap.view.tag = 120 +i;
-            image.contentMode = UIViewContentModeScaleAspectFit;
-//            [image sd_setImageWithURL:[NSURL URLWithString:imgArray[i]] placeholderImage:[UIImage imageNamed:@"gary_head"]];
-            image.image = [UIImage imageNamed:imgArray[i]];
+            
+            
+            [image sd_setImageWithURL:[NSURL URLWithString:imgArray[i]] placeholderImage:[UIImage imageNamed:@"1.jpg"]];
             [self.adScroll addSubview:image];
         }
         
         if (count >1) {
-
+            
             UIImageView *lastImageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH*(imgArray.count+1), 0, SCREEN_WIDTH, self.scrollerHeight)];
             [lastImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArr[0]]];
             [self.adScroll addSubview:lastImageView];
@@ -164,7 +164,7 @@
 }
 
 - (void)timerInit {
-    self.timer = [NSTimer timerWithTimeInterval:5.0
+    self.timer = [NSTimer timerWithTimeInterval:10
                                          target:self
                                        selector:@selector(nextPage)
                                        userInfo:nil
@@ -173,4 +173,5 @@
 }
 
 @end
+
 

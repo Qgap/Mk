@@ -10,4 +10,6 @@
 
 @interface LoanAreaViewController : UIViewController
 
+- (id)initWithProductID:(NSString *)productID;
+
 @end

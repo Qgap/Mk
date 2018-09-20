@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "RegisterViewController.h"
-#import "MainViewController.h"
 #import "LoginViewController.h"
 #import "DataCenter.h"
 

@@ -7,10 +7,13 @@
 //
 
 #import "LoginViewController.h"
-#import "RegisterViewController.h"
+#import "RegisterViewController.h"x
 #import <Masonry.h>
 #import "GQUIControl.h"
 #import "PwdTextView.h"
+#import "Request.h"
+#import "DataCenter.h"
+
 
 @interface LoginViewController ()
 
@@ -275,7 +278,17 @@
 }
 
 - (void)login {
-    NSLog(@"login ");
+    [SVProgressHUD show];
+    
+    [Request postURL:loginURL params:@{@"phoneNo":self.phoneText.text,@"password":self.pwdText.text} completion:^(BOOL success, id responseObject, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (success) {
+            [[DataCenter sharedInstance] loginSucceedWithData:responseObject[@"data"]];
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }
+    }];
 }
 
 - (void)pwdLoginAction {

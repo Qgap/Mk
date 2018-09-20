@@ -13,6 +13,9 @@
 #import "SectionHeadView.h"
 #import "LoanAreaViewController.h"
 #import "Request.h"
+#import "ProductModel.h"
+#import "Appdelegate.h"
+
 
 static NSString *AnuounceCell = @"AUNOUNCE";
 static NSString *HotLoanCell = @"HOTLOAN";
@@ -34,6 +37,10 @@ typedef NS_ENUM(NSInteger,SectionType) {
 @property (nonatomic, strong)AdvertisingColumn *adView; 
 @property (nonatomic, strong)NSMutableArray *dataArray;
 @property (nonatomic, strong)NSArray *sectionRowArray;
+@property (nonatomic, strong)NSArray *productArray;
+@property (nonatomic, strong)NSArray *noticeArray;
+@property (nonatomic, strong)NSArray *bannerArray;
+@property (nonatomic, strong)NSArray *bannerModelArray;
 @end
 
 @implementation HomeViewController
@@ -47,7 +54,6 @@ typedef NS_ENUM(NSInteger,SectionType) {
     
     [self initUI];
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,8 +64,46 @@ typedef NS_ENUM(NSInteger,SectionType) {
 }
 
 - (void)loadRequest {
-    [Request postURL:bankList params:nil completion:^(BOOL success, id responseObject, NSError *error) {
+    
+    [Request postURL:bannaerURL params:nil completion:^(BOOL success, id responseObject, NSError *error) {
+         NSLog(@"banner :%@",responseObject);
+        if (success) {
+            self.bannerModelArray = [NSArray yy_modelArrayWithClass:[BannerModel class] json:responseObject[@"data"]];
+            
+            NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:10];
+            for (BannerModel *model in self.bannerModelArray) {
+                [mutableArray addObject:model.imgUrl];
+            }
+            
+            self.bannerArray = mutableArray;
+            
+            dispatch_main_sync_safe(^{
+                [self.adView setArray:self.bannerArray];
+            });
+        }
+    }];
+    
+    [Request postURL:noticeURL params:nil completion:^(BOOL success, id responseObject, NSError *error) {
         NSLog(@"response :%@",responseObject);
+        if (success) {
+            NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:10];
+            
+            for (NSDictionary *dic in responseObject[@"data"]) {
+                [mutableArray addObject:dic[@"noticeContext"]];
+                
+            }
+            
+            self.noticeArray = mutableArray;
+            [self.tableView reloadData];
+        }
+    }];
+    
+    [Request postURL:productTypeList params:@{@"showType":@"1"} completion:^(BOOL success, id responseObject, NSError *error) {
+        NSLog(@"response :%@",responseObject);
+        if (success) {
+            self.productArray = [NSArray yy_modelArrayWithClass:[ProductModel class] json:responseObject[@"data"]];
+            [self.tableView reloadData];
+        }
     }];
 }
 
@@ -71,7 +115,8 @@ typedef NS_ENUM(NSInteger,SectionType) {
     
     if (indexPath.section == AunounceSection) {
         AunounceCell *cell = [tableView dequeueReusableCellWithIdentifier:AnuounceCell forIndexPath:indexPath];
-        [cell setupAunounceScroll:@[@"上善若水",@"恭喜高青中奖500万",@"17620362405",@"人有善念，天必佑之"]];
+//        [cell setupAunounceScroll:@[@"上善若水",@"恭喜高青中奖500万",@"17620362405",@"人有善念，天必佑之"]];
+        [cell setupAunounceScroll:self.noticeArray];
         return cell;
     } else if (indexPath.section == LoanTypeSection) {
         
@@ -91,13 +136,14 @@ typedef NS_ENUM(NSInteger,SectionType) {
         
     } else {
         HomeLoanCell *cell = [tableView dequeueReusableCellWithIdentifier:HotLoanCell forIndexPath:indexPath];
+        [cell configureCell:self.productArray[indexPath.row]];
         return cell;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == HotRecommendSection) {
-        return 20;
+        return self.productArray.count;
     }
     return 1;
 }
@@ -118,16 +164,23 @@ typedef NS_ENUM(NSInteger,SectionType) {
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+
+-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == HotRecommendSection) {
         return 44;
     }
-    return 0.1;
+    return 10;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+-(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    
+    if (section == FunctionTypeSection) {
+        return 10;
+    }
+    
+    return 0.01f;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
@@ -153,19 +206,24 @@ typedef NS_ENUM(NSInteger,SectionType) {
     if (indexPath.section == 0) return ;
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    LoanAreaViewController *loan = [[LoanAreaViewController alloc] init];
+    
+    ProductModel *model = self.productArray[indexPath.row];
+    
+    LoanAreaViewController *loan = [[LoanAreaViewController alloc] initWithProductID:model.priductId];
     loan.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:loan animated:YES];
     
 }
 
 - (void)initUI {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.estimatedSectionFooterHeight = 0.f;
-    self.tableView.estimatedSectionHeaderHeight = 0.f;
+    self.tableView.estimatedSectionFooterHeight = CGFLOAT_MIN;
+    self.tableView.estimatedSectionHeaderHeight = CGFLOAT_MIN;
     [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoanCell];
     [self.tableView registerClass:[AunounceCell class] forCellReuseIdentifier:AnuounceCell];
     [self.tableView registerClass:[LoanTypeCell class] forCellReuseIdentifier:LoanTypeCellID];
@@ -176,7 +234,7 @@ typedef NS_ENUM(NSInteger,SectionType) {
     
     self.adView = [[AdvertisingColumn alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150)];
     
-    [self.adView setArray:@[@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg"]];
+//    [self.adView setArray:@[@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg"]];
     
     WS(weakSelf, self);
     self.adView.adImageClick = ^(UITapGestureRecognizer *tap) {

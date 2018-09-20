@@ -10,6 +10,8 @@
 #import "LoanDetailCell.h"
 #import "SectionHeadView.h"
 #import "LoanAreaCell.h"
+#import "Request.h"
+#import "ProductDetailModel.h"
 
 static NSString *const firstCell = @"FIRSTCELL";
 static NSString *const detailCell = @"DetailCell";
@@ -24,9 +26,18 @@ static NSString *const conditionCell = @"ConditionCell";
 
 @property (nonatomic, strong)UIView *bottomView;
 @property (nonatomic, strong)UIButton *applyButton;
+@property (nonatomic, strong)ProductDetailModel *model;
+@property (nonatomic, copy)NSString *productID;
 @end
 
 @implementation LoanAreaViewController
+
+- (id)initWithProductID:(NSString *)productID {
+    if (self = [super initWithNibName:nil bundle:nil]) {
+        self.productID = productID;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,6 +51,24 @@ static NSString *const conditionCell = @"ConditionCell";
     [self.view addSubview:self.tableView];
     
     [self initUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadRequest];
+}
+
+- (void)loadRequest {
+    
+    [SVProgressHUD show];
+    [Request postURL:productById params:@{@"productId":self.productID} completion:^(BOOL success, id responseObject, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (success) {
+//            NSLog(@"response :%@",responseObject);
+            self.model = [ProductDetailModel yy_modelWithDictionary:responseObject[@"data"]];
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)initUI {
@@ -71,7 +100,7 @@ static NSString *const conditionCell = @"ConditionCell";
         
         if (indexPath.row == 0) {
             LoanAreaCell *cell = [tableView dequeueReusableCellWithIdentifier:firstCell];
-            
+            [cell configureCell:self.model];
             return cell;
         } else if (indexPath.row == 1) {
             LoanDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCell forIndexPath:indexPath];

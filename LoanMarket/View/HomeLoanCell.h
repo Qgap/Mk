@@ -29,6 +29,9 @@ typedef void(^loanTypeClick)(UIButton *);
 
 @end
 
+
+
 @interface FunctionAreaCell : UITableViewCell
+
 
 @end

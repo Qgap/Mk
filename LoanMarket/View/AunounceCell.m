@@ -81,7 +81,7 @@ static NSInteger baseTag = 1099;
 - (void)setupAunounceScroll:(NSArray *)array {
     
     if ([self.dataArray isEqualToArray:array]) {
-        NSLog(@"no change --- ");
+        
     } else {
         self.dataArray = array;
         

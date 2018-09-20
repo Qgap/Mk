@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class ProductDetailModel;
+
 @interface LoanAreaCell : UITableViewCell
+
+- (void)configureCell:(ProductDetailModel *)model;
 
 @end
 

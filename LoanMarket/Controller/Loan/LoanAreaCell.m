@@ -8,6 +8,8 @@
 
 #import "LoanAreaCell.h"
 #import <Masonry.h>
+#import "ProductDetailModel.h"
+#import <UIImageView+WebCache.h>
 
 @interface LoanAreaCell ()
 @property(nonatomic,strong)UIImageView *iconImageView;
@@ -86,10 +88,25 @@
     self.peopleLabel.text = @"10000人";
 }
 
-- (void)setUpCell:(id)model {
-    
+- (void)configureCell:(ProductDetailModel *)model {
+    self.markImageView.image = [UIImage imageNamed:@"subscript"];
+    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.logoUrl] placeholderImage:[UIImage imageNamed:@"apply_icon"]];
+    self.titleLabel.text = model.productName;
+    NSString *amountString = [NSString stringWithFormat:@"贷款金额：%@元",model.loanAmount];
+    NSString *peopleString = [NSString stringWithFormat:@"贷款人数：%@人",model.loanCount];
+    self.amountLabel.attributedText = [self fullString:amountString attribuString:model.loanAmount];
+    self.peopleLabel.attributedText = [self fullString:peopleString attribuString:model.loanCount];
 }
 
+- (NSAttributedString *)fullString:(NSString *)fullString attribuString:(NSString *)text {
+    
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:fullString];
+
+    [attString addAttribute:NSForegroundColorAttributeName value:orangeColor range:NSMakeRange(5, text.length + 1)];
+    
+    return attString;
+    
+}
 
 @end
 
@@ -132,12 +149,12 @@
     
     for (int i = 0; i < iconArray.count; i ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:iconArray[i]]];
-        [self.contentView addSubview:imageView];
+//        [self.contentView addSubview:imageView];
         
         imageView.frame = CGRectMake(26 * WIDTH_SCALE, 26, 50 * WIDTH_SCALE, 50*WIDTH_SCALE);
         
         UIImageView *arrowImage = [[UIImageView alloc] init];
-        [self.contentView addSubview:arrowImage];
+//        [self.contentView addSubview:arrowImage];
     }
 }
 

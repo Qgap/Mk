@@ -178,6 +178,8 @@ static CGFloat lineHeight = 40;
                           IStranslatesAutoresizingMask:YES];
     [self.view addSubview:self.mainScroll];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyborad)];
+    [self.mainScroll addGestureRecognizer:tapGesture];
     
     self.phoneText = [self unitTextFieldPlaceHolder:@"请输入手机号"];
     self.phoneText.keyboardType = UIKeyboardTypePhonePad;
@@ -316,6 +318,12 @@ static CGFloat lineHeight = 40;
     [self.mainScroll addSubview:textField];
     return textField;
 }
+
+
+- (void)hiddenKeyborad {
+    [self.view endEditing:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

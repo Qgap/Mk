@@ -25,6 +25,7 @@
 		3A801DC5215396EC00055D1C /* AppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A801DC4215396EC00055D1C /* AppConstants.m */; };
 		3A801DC82153A10300055D1C /* ParseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A801DC72153A10300055D1C /* ParseModel.m */; };
 		3A801DCB2153AC6200055D1C /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A801DCA2153AC6200055D1C /* ProductModel.m */; };
+		3A8D98382153F05B00E2067D /* ProductDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D98372153F05B00E2067D /* ProductDetailModel.m */; };
 		3AB445361FC2818D0035E51C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445351FC2818D0035E51C /* AppDelegate.m */; };
 		3AB445391FC2818D0035E51C /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB445381FC2818D0035E51C /* RegisterViewController.m */; };
 		3AB4453E1FC2818D0035E51C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB4453D1FC2818D0035E51C /* Assets.xcassets */; };
@@ -100,6 +101,8 @@
 		3A801DC72153A10300055D1C /* ParseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseModel.m; sourceTree = "<group>"; };
 		3A801DC92153AC6200055D1C /* ProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
 		3A801DCA2153AC6200055D1C /* ProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
+		3A8D98362153F05B00E2067D /* ProductDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductDetailModel.h; sourceTree = "<group>"; };
+		3A8D98372153F05B00E2067D /* ProductDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductDetailModel.m; sourceTree = "<group>"; };
 		3AB445311FC2818C0035E51C /* LoanMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoanMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB445341FC2818C0035E51C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3AB445351FC2818D0035E51C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -177,6 +180,8 @@
 				3AB445761FC2CF3E0035E51C /* HomeViewController.m */,
 				3A801DC92153AC6200055D1C /* ProductModel.h */,
 				3A801DCA2153AC6200055D1C /* ProductModel.m */,
+				3A8D98362153F05B00E2067D /* ProductDetailModel.h */,
+				3A8D98372153F05B00E2067D /* ProductDetailModel.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -598,6 +603,7 @@
 				3AB445741FC2CE9A0035E51C /* MZTimerLabel.m in Sources */,
 				3A3240661FC40794000664A0 /* MineViewController.m in Sources */,
 				3A6BFCF41FC6BB9D00E299AB /* CodeLoginView.m in Sources */,
+				3A8D98382153F05B00E2067D /* ProductDetailModel.m in Sources */,
 				3A106B961FD444C300EC1C47 /* LoanDetailCell.m in Sources */,
 				3A7AEC741FE91C7E0056471A /* MenuView.m in Sources */,
 				3AB4457A1FC2CF600035E51C /* DataCenter.m in Sources */,

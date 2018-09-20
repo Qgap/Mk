@@ -19,3 +19,10 @@
 
 
 @end
+
+@interface BannerModel : NSObject
+
+@property (nonatomic,copy) NSString *imgUrl;
+@property (nonatomic,copy) NSString *productId;
+
+@end

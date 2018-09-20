@@ -15,6 +15,8 @@
 #import "ProductModel.h"
 
 static NSString *const cellId = @"CELLID";
+static NSString *const typeString = @"贷款类型";
+static NSString *const sortString = @"默认排序";
 
 typedef NS_ENUM (NSInteger, sortMethod)  {
     sortByDefault,
@@ -56,7 +58,22 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
 
 - (void)loadRequest {
     [SVProgressHUD show];
-    [Request postURL:productTypeList params:@{@"showType":@"2"} completion:^(BOOL success, id responseObject, NSError *error) {
+    
+    NSString *sortType = @"";
+    NSString *loanType = @"";
+    if ([self.sortLabel.text isEqualToString:sortString]) {
+        sortType = @"金额正序";
+    } else {
+        sortType = self.sortLabel.text;
+    }
+    
+    if ([self.typeLabel.text isEqualToString:typeString]) {
+        loanType = @"身份证贷";
+    } else {
+        loanType = self.typeLabel.text;
+    }
+    
+    [Request postURL:productAllList params:@{@"sortType":sortType,@"loanType":loanType} completion:^(BOOL success, id responseObject, NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"response :%@",responseObject);
         
@@ -76,6 +93,8 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
         MenuView *menuView = [[MenuView alloc] initWithFrame:rect withArray: self.sortArray];
         menuView.Selector = ^(NSString *text) {
             self.sortLabel.text = text;
+            
+            [self loadRequest];
         };
         
         [self.view addSubview:menuView];
@@ -86,6 +105,7 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
         MenuView *menuView = [[MenuView alloc] initWithFrame:rect withArray: self.loanTypeArray];
         menuView.Selector = ^(NSString *text) {
             self.typeLabel.text = text;
+            [self loadRequest];
         };
         [self.view addSubview:menuView];
     }
@@ -153,7 +173,7 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     [headView addSubview:leftView];
     
     self.sortLabel = [GQUIControl labelWithTextFont:[UIFont systemFontOfSize:14] textColor:RGB(106, 106, 106) textAlignment:NSTextAlignmentCenter];
-    self.sortLabel.text = @"默认排序";
+    self.sortLabel.text = sortString;
     [leftView addSubview:self.sortLabel];
     
     UIImageView *arrowImage = [GQUIControl imageViewContentModel:UIViewContentModeScaleAspectFit];
@@ -182,7 +202,7 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     [headView addSubview:rightView];
     
     self.typeLabel = [GQUIControl labelWithTextFont:[UIFont systemFontOfSize:14] textColor:RGB(106, 106, 106) textAlignment:NSTextAlignmentCenter];
-    self.typeLabel.text = @"贷款类型";
+    self.typeLabel.text = typeString;
     [rightView addSubview:self.typeLabel];
     
     UIImageView *rightArrowImage = [GQUIControl imageViewContentModel:UIViewContentModeScaleAspectFit];
