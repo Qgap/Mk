@@ -38,7 +38,7 @@ static NSString *const phone = @"Phone";
     return self;
 }
 
-- (void)loginSucceedWithData:(id)data {
+- (void)loginSuccessedWithData:(id)data {
     self.userToken = data[@"token"];
     self.phoneNO = data[@"phoneNo"];
     
@@ -47,6 +47,15 @@ static NSString *const phone = @"Phone";
     [userDefault setObject:self.phoneNO forKey:phone];
     [userDefault synchronize];
     
+}
+
+- (void)loginOutSuccessed {
+    self.userToken = @"";
+    self.phoneNO = @"";
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault removeObjectForKey:token];
+    [userDefault removeObjectForKey:phone];
+    [userDefault synchronize];
 }
 
 @end

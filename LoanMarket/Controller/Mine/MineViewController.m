@@ -9,6 +9,8 @@
 #import "MineViewController.h"
 #import "GQUIControl.h"
 #import <Masonry.h>
+#import "DataCenter.h"
+#import "LoginViewController.h"
 
 static NSString *const cellId = @"CELLID";
 
@@ -35,6 +37,8 @@ static CGFloat headHeight = 278;
 @property (nonatomic, strong)UILabel *nameLabel;
 
 @property (nonatomic, strong)UILabel *phoneLabel;
+
+//@property (nonatomic, strong)UIButton *loginOutBtn;
 
 @end
 
@@ -65,7 +69,6 @@ static CGFloat headHeight = 278;
         _tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellId];
         
         _tableView.estimatedRowHeight = 0;
@@ -115,8 +118,34 @@ static CGFloat headHeight = 278;
         self.nameLabel.text = @"hello";
         
         self.phoneLabel.text = @"124442";
+        
+        
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+        footerView.backgroundColor = [UIColor clearColor];
+        
+        UIButton *signOutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [signOutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        signOutBtn.backgroundColor = orangeColor;
+        signOutBtn.layer.cornerRadius = 5;
+        [signOutBtn addTarget:self action:@selector(signOut) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:signOutBtn];
+        
+        _tableView.tableFooterView = footerView;
+        
+        [signOutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.center.mas_equalTo(footerView);
+            make.top.mas_equalTo(footerView.mas_top).offset(10);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 100 * WIDTH_SCALE, 44));
+        }];
     }
     return _tableView;
+}
+
+- (void)signOut {
+    [[DataCenter sharedInstance] loginOutSuccessed];
+    
+    UINavigationController *loginVC = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+    [self presentViewController:loginVC animated:YES completion:nil];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

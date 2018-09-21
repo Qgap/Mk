@@ -16,6 +16,8 @@
 @property(nonatomic,copy)NSString *userToken;
 @property(nonatomic,copy)NSString *phoneNO;
 
-- (void)loginSucceedWithData:(id)data;
+- (void)loginSuccessedWithData:(id)data;
+
+- (void)loginOutSuccessed;
 
 @end

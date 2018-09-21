@@ -135,7 +135,7 @@ static CGFloat lineHeight = 40;
     [Request postURL:registerURL params:params completion:^(BOOL success, id responseObject, NSError *error) {
         [SVProgressHUD dismiss];
         if (success) {
-            [[DataCenter sharedInstance] loginSucceedWithData:responseObject[@"data"]];
+            [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
             [self dismissViewControllerAnimated:YES completion:^{
                 
             }];

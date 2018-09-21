@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "RegisterViewController.h"
+//#import "RegisterViewController.h"
 #import "LoginViewController.h"
 #import "DataCenter.h"
 
@@ -31,7 +31,7 @@
     if (![DataCenter sharedInstance].userToken ) {
         dispatch_main_sync_safe(^{
             
-            UINavigationController *registerVC = [[UINavigationController alloc] initWithRootViewController:[[RegisterViewController alloc] init]];
+            UINavigationController *registerVC = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
             [self.mainVC presentViewController:registerVC animated:YES completion:nil];
         });
         

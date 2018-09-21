@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "RegisterViewController.h"x
+#import "RegisterViewController.h"
 #import <Masonry.h>
 #import "GQUIControl.h"
 #import "PwdTextView.h"
@@ -17,7 +17,7 @@
 
 @interface LoginViewController ()
 
-@property (nonatomic, strong)UIScrollView *contentScroll;
+//@property (nonatomic, strong)UIScrollView *contentScroll;
 
 @property (nonatomic, strong)UIView *passwdView;
 @property (nonatomic, strong)UIView *codeView;
@@ -49,7 +49,7 @@
                                                                     action:@selector(registerAction)];
     self.navigationItem.rightBarButtonItem = registerItem;
     
-    [self setUpView];
+    [self initUI];
 }
 
 - (void)registerAction {
@@ -57,7 +57,10 @@
     [self.navigationController pushViewController:registerVC animated:YES];
 }
 
-- (void)setUpView {
+- (void)initUI {
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
      self.pwdLogin = [GQUIControl buttonWithTitle:@"密码登录"
                                            titleColor:blackColor
                                              textFont:[UIFont systemFontOfSize:16]];
@@ -95,38 +98,43 @@
         make.centerX.mas_equalTo(self.pwdLogin.mas_centerX);
     }];
   
-    self.contentScroll = [GQUIControl scrollViewWithFrame:CGRectZero
-                                              contentSize:CGSizeMake(SCREEN_WIDTH * 2, 0)
-                                                  showVer:NO
-                                                  showHor:NO
-                                                 delegate:self
-                             IStranslatesAutoresizingMask:YES];
-    [self.view addSubview:self.contentScroll];
-    
-    [self.contentScroll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.pwdLogin.mas_bottom).offset(15);
-    }];
+//    self.contentScroll = [GQUIControl scrollViewWithFrame:CGRectZero
+//                                              contentSize:CGSizeMake(SCREEN_WIDTH , 1000)
+//                                                  showVer:NO
+//                                                  showHor:NO
+//                                                 delegate:self
+//                             IStranslatesAutoresizingMask:YES];
+//    [self.view addSubview:self.contentScroll];
+//
+//    [self.contentScroll mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.mas_equalTo(self.view);
+//        make.bottom.mas_equalTo(self.view);
+//        make.top.mas_equalTo(self.pwdLogin.mas_bottom).offset(15);
+//    }];
     
     self.passwdView = [[UIView alloc] init];
-    [self.contentScroll addSubview:self.passwdView];
+//    [self.contentScroll addSubview:self.passwdView];
+    [self.view addSubview:self.passwdView];
     
     self.codeView = [[UIView alloc] init];
-    [self.contentScroll addSubview:self.codeView];
+    [self.view addSubview:self.codeView];
+//    [self.contentScroll addSubview:self.codeView];
     
     [self.passwdView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.contentScroll.mas_top);
+        make.top.mas_equalTo(self.pwdLogin.mas_bottom).offset(15);
         make.bottom.mas_equalTo(self.view.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+//        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.right.mas_equalTo(self.view.mas_right);
         make.left.mas_equalTo(self.view.mas_left);
     }];
     
     [self.codeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.contentScroll.mas_top);
+        make.top.mas_equalTo(self.pwdLogin.mas_bottom).offset(15);
         make.bottom.mas_equalTo(self.view.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.left.mas_equalTo(self.contentScroll.mas_left).offset(SCREEN_WIDTH);
+        make.right.mas_equalTo(self.view.mas_right);
+        make.left.mas_equalTo(self.view.mas_left);
+//        make.width.mas_equalTo(SCREEN_WIDTH);
+//        make.left.mas_equalTo(self.contentScroll.mas_left).offset(SCREEN_WIDTH);
     }];
     
     self.codeView.backgroundColor = [UIColor whiteColor];
@@ -283,7 +291,7 @@
     [Request postURL:loginURL params:@{@"phoneNo":self.phoneText.text,@"password":self.pwdText.text} completion:^(BOOL success, id responseObject, NSError *error) {
         [SVProgressHUD dismiss];
         if (success) {
-            [[DataCenter sharedInstance] loginSucceedWithData:responseObject[@"data"]];
+            [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
             [self dismissViewControllerAnimated:YES completion:^{
                 
             }];
@@ -292,13 +300,13 @@
 }
 
 - (void)pwdLoginAction {
-//    [self.contentScroll setContentOffset:CGPointMake(0, 0) animated:YES];
-    [self.contentScroll scrollRectToVisible:CGRectMake(0, 0, 0, 0) animated:YES];
+    self.codeView.hidden = YES;
+    self.passwdView.hidden = NO;
 }
 
 - (void)codeLoginAction {
-//    [self.contentScroll setContentOffset:CGPointMake(SCREEN_WIDTH, 0) animated:YES];
-    [self.contentScroll scrollRectToVisible:CGRectMake(SCREEN_WIDTH, 0, 0, 0) animated:YES];
+    self.codeView.hidden = NO;
+    self.passwdView.hidden = YES;
 
 }
 
