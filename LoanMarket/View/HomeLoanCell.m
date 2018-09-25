@@ -194,6 +194,8 @@
 
 @interface LoanTypeCell ()
 
+@property (nonatomic,strong) NSArray *titleArray;
+
 @end
 
 @implementation LoanTypeCell
@@ -209,10 +211,10 @@
 }
 
 - (void)initUI {
-    NSArray *titleArray = @[@"身份证贷",@"信用卡贷",@"大额贷",@"抵押贷"];
+    self.titleArray = @[@"身份证贷",@"信用卡贷",@"大额贷",@"抵押贷"];
     NSArray *iconArray = @[@"idCard_loan",@"credit_loan",@"large_loan",@"mortgage_loan"];
     
-    for (int i = 0; i < titleArray.count; i ++ ) {
+    for (int i = 0; i < self.titleArray.count; i ++ ) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(SCREEN_WIDTH / 4.0 * i, 0, SCREEN_WIDTH / 4.0, 80);
         [button addTarget:self action:@selector(loanTypeAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -224,7 +226,7 @@
         [button addSubview:iconImageView];
         
         UILabel *titleLabel = [GQUIControl labelWithTextFont:Font14 textColor:blackColor textAlignment:NSTextAlignmentCenter];
-        titleLabel.text = titleArray[i];
+        titleLabel.text = self.titleArray[i];
         [button addSubview:titleLabel];
         
         titleLabel.frame = CGRectMake(0, 50, SCREEN_WIDTH / 4.0, 20);
@@ -244,6 +246,7 @@
 //        self.loanTypeButton(sender);
 //    }
     
+    [DataCenter sharedInstance].loanType = self.titleArray[sender.tag];
     
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     

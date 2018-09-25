@@ -173,11 +173,11 @@ typedef NS_ENUM(NSInteger,SectionType) {
 }
 
 -(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    
+
     if (section == FunctionTypeSection) {
         return 10;
     }
-    
+
     return 0.01f;
 }
 
@@ -218,12 +218,14 @@ typedef NS_ENUM(NSInteger,SectionType) {
 - (void)initUI {
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.estimatedSectionFooterHeight = CGFLOAT_MIN;
-    self.tableView.estimatedSectionHeaderHeight = CGFLOAT_MIN;
+    self.tableView.estimatedSectionFooterHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 0;
     [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoanCell];
     [self.tableView registerClass:[AunounceCell class] forCellReuseIdentifier:AnuounceCell];
     [self.tableView registerClass:[LoanTypeCell class] forCellReuseIdentifier:LoanTypeCellID];

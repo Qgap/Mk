@@ -15,9 +15,11 @@
 
 @property(nonatomic,copy)NSString *userToken;
 @property(nonatomic,copy)NSString *phoneNO;
+@property(nonatomic,copy)NSString *loanType; //保存贷款类型
 
 - (void)loginSuccessedWithData:(id)data;
 
 - (void)loginOutSuccessed;
+
 
 @end

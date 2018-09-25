@@ -55,6 +55,7 @@ static NSString *const conditionCell = @"ConditionCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self loadRequest];
 }
 

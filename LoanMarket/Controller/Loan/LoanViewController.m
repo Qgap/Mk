@@ -13,10 +13,11 @@
 #import "MenuView.h"
 #import "Request.h"
 #import "ProductModel.h"
+#import "DataCenter.h"
 
 static NSString *const cellId = @"CELLID";
-static NSString *const typeString = @"贷款类型";
-static NSString *const sortString = @"默认排序";
+static NSString *const typeDefaultString = @"贷款类型";
+static NSString *const sortDefaultString = @"默认排序";
 
 typedef NS_ENUM (NSInteger, sortMethod)  {
     sortByDefault,
@@ -42,8 +43,8 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     self.navigationItem.title = @"贷款搜索";
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
-    self.loanTypeArray = @[@"身份证贷",@"信用卡贷",@"大额贷",@"抵押贷"];
-    self.sortArray = @[@"金额正序",@"金额倒序"];
+    self.loanTypeArray = @[@"身份证贷",@"信用卡贷",@"大额贷",@"抵押贷",@"贷款类型"];
+    self.sortArray = @[@"金额正序",@"金额倒序",@"默认排序"];
     
     [self.view addSubview:self.tableView];
     [self setupHeadView];
@@ -52,8 +53,23 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    NSString *loanType = [DataCenter sharedInstance].loanType;
+    
+    if (loanType && ![loanType isEqualToString:@""]) {
+        self.typeLabel.text = loanType;
+    } else {
+        self.typeLabel.text = typeDefaultString;
+    }
+    
+    self.sortLabel.text = sortDefaultString;
+    
     [self loadRequest];
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [DataCenter sharedInstance].loanType = @"";
 }
 
 - (void)loadRequest {
@@ -61,13 +77,13 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     
     NSString *sortType = @"";
     NSString *loanType = @"";
-    if ([self.sortLabel.text isEqualToString:sortString]) {
+    if ([self.sortLabel.text isEqualToString:sortDefaultString]) {
         sortType = @"金额正序";
     } else {
         sortType = self.sortLabel.text;
     }
     
-    if ([self.typeLabel.text isEqualToString:typeString]) {
+    if ([self.typeLabel.text isEqualToString:typeDefaultString]) {
         loanType = @"身份证贷";
     } else {
         loanType = self.typeLabel.text;
@@ -173,7 +189,7 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     [headView addSubview:leftView];
     
     self.sortLabel = [GQUIControl labelWithTextFont:[UIFont systemFontOfSize:14] textColor:RGB(106, 106, 106) textAlignment:NSTextAlignmentCenter];
-    self.sortLabel.text = sortString;
+    self.sortLabel.text = sortDefaultString;
     [leftView addSubview:self.sortLabel];
     
     UIImageView *arrowImage = [GQUIControl imageViewContentModel:UIViewContentModeScaleAspectFit];
@@ -202,7 +218,7 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     [headView addSubview:rightView];
     
     self.typeLabel = [GQUIControl labelWithTextFont:[UIFont systemFontOfSize:14] textColor:RGB(106, 106, 106) textAlignment:NSTextAlignmentCenter];
-    self.typeLabel.text = typeString;
+    self.typeLabel.text = typeDefaultString;
     [rightView addSubview:self.typeLabel];
     
     UIImageView *rightArrowImage = [GQUIControl imageViewContentModel:UIViewContentModeScaleAspectFit];

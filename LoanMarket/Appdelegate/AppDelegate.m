@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-//#import "RegisterViewController.h"
 #import "LoginViewController.h"
 #import "DataCenter.h"
 
@@ -24,13 +23,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.mainVC = [[MainViewController alloc] init];
     self.window.rootViewController = self.mainVC;
-
     
     [self.window makeKeyAndVisible];
     
     if (![DataCenter sharedInstance].userToken ) {
         dispatch_main_sync_safe(^{
-            
             UINavigationController *registerVC = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
             [self.mainVC presentViewController:registerVC animated:YES completion:nil];
         });

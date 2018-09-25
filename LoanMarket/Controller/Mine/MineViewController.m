@@ -11,6 +11,7 @@
 #import <Masonry.h>
 #import "DataCenter.h"
 #import "LoginViewController.h"
+#import "AppDelegate.h"
 
 static NSString *const cellId = @"CELLID";
 
@@ -52,11 +53,11 @@ static CGFloat headHeight = 278;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    self.dataArray = @[@[@{@"image":@"card_mine",@"title":@"我要办卡"},
-                       @{@"image":@"loan_mine",@"title":@"我要贷款"},
-                       @{@"image":@"raise_mine",@"title":@"我要提额"}],
-                       @[@{@"image":@"guide_mine",@"title":@"新手指南"},
-                         @{@"image":@"service_mine",@"title":@"我的客服"}]
+    self.dataArray = @[@[@{@"image":@"card_mine",@"title":@"我要办卡",actionName:kBank},
+                       @{@"image":@"loan_mine",@"title":@"我要贷款",actionName:kLoan},
+                       @{@"image":@"raise_mine",@"title":@"我要提额",actionName:kRaiseAmount}],
+                       @[@{@"image":@"guide_mine",@"title":@"新手指南",actionName:kGuide},
+                         @{@"image":@"service_mine",@"title":@"我的客服",actionName:kService}]
                        ];
     
     
@@ -72,7 +73,7 @@ static CGFloat headHeight = 278;
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellId];
         
         _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 10;
+        _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         
         self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, headHeight)];
@@ -133,9 +134,9 @@ static CGFloat headHeight = 278;
         _tableView.tableFooterView = footerView;
         
         [signOutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.center.mas_equalTo(footerView);
             make.top.mas_equalTo(footerView.mas_top).offset(10);
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 100 * WIDTH_SCALE, 44));
+            make.centerX.mas_equalTo(footerView.mas_centerX);
         }];
     }
     return _tableView;
@@ -191,6 +192,18 @@ static CGFloat headHeight = 278;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *action = self.dataArray[indexPath.section][indexPath.row][actionName];
+    
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if ([action isEqualToString:kLoan]) {
+        
+        appdelegate.mainVC.selectedIndex = 1;
+        
+    } else if ([action isEqualToString:kBank]) {
+        appdelegate.mainVC.selectedIndex = 2;
+    }
 }
 
 @end
