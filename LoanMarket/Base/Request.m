@@ -81,13 +81,14 @@ static const NSString *SECURITY_KEY = @"1cLLub8UOLvlT69ITSBFgHX50f9T4rOG";
                 
                 if (code == 19902 ||code == 19903 ) {
                     
-//                    dispatch_main_sync_safe(^{
+                    dispatch_main_sync_safe(^{
 //                        LoginViewController *login = [[LoginViewController alloc] init];
-//                        AppDelegate *appdelegate  = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//                        [appdelegate.mainVC presentViewController:login animated:YES completion:^{
-//
-//                        }];
-//                    });
+                        UINavigationController *login = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+                        AppDelegate *appdelegate  = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                        [appdelegate.mainVC presentViewController:login animated:YES completion:^{
+
+                        }];
+                    });
 
                 }
             }

@@ -25,6 +25,11 @@
 @property (nonatomic,copy) NSString *slogan;
 @property (nonatomic,copy) NSString *timeAvg;
 
+@property (nonatomic,strong) NSArray *applyInfo;
+
 @end
 
 
+//@interface ApplyInfoModel : NSObject
+//
+//@end

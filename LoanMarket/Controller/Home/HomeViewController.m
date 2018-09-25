@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger,SectionType) {
 @property (nonatomic, strong)NSArray *productArray;
 @property (nonatomic, strong)NSArray *noticeArray;
 @property (nonatomic, strong)NSArray *bannerArray;
-@property (nonatomic, strong)NSArray *bannerModelArray;
+@property (nonatomic, strong)NSArray <BannerModel *> *bannerModelArray;
 @end
 
 @implementation HomeViewController
@@ -108,7 +108,11 @@ typedef NS_ENUM(NSInteger,SectionType) {
 }
 
 - (void)adImageClick:(UITapGestureRecognizer *)sender {
-
+    NSInteger tag = sender.view.tag - baseTapTag;
+    BannerModel *model = self.bannerModelArray[tag];
+    LoanAreaViewController *vc = [[LoanAreaViewController alloc] initWithProductID:model.productId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

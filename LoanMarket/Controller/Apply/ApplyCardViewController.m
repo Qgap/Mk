@@ -10,6 +10,7 @@
 #import "ApplyCardCell.h"
 #import "CardListModel.h"
 #import "Request.h"
+#import "WKWebViewController.h"
 
 static NSString *const cellId = @"CardListCell";
 
@@ -42,8 +43,7 @@ static NSString *const cellId = @"CardListCell";
     [Request postURL:bankList params:nil completion:^(BOOL success, id responseObject, NSError *error) {
         [SVProgressHUD dismiss];
         if (success) {
-//            id data = responseObject[@"data"];
-            
+
             self.dataArray = [NSArray yy_modelArrayWithClass:[CardListModel class] json:responseObject[@"data"]];
             
             [self.tableView reloadData];
@@ -81,6 +81,11 @@ static NSString *const cellId = @"CardListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    CardListModel *model = self.dataArray[indexPath.row];
+    WKWebViewController *vc = [[WKWebViewController alloc] initWithUrl:model.bankUrl];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

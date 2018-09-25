@@ -12,6 +12,8 @@
 #import "LoanAreaCell.h"
 #import "Request.h"
 #import "ProductDetailModel.h"
+#import "NSString+AttributeString.h"
+#import "WKWebViewController.h"
 
 static NSString *const firstCell = @"FIRSTCELL";
 static NSString *const detailCell = @"DetailCell";
@@ -21,9 +23,6 @@ static NSString *const conditionCell = @"ConditionCell";
 @interface LoanAreaViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *tableView;
-@property (nonatomic, strong)NSArray *sectionTitleArray;
-@property (nonatomic, strong)NSArray *conditionArray;
-
 @property (nonatomic, strong)UIView *bottomView;
 @property (nonatomic, strong)UIButton *applyButton;
 @property (nonatomic, strong)ProductDetailModel *model;
@@ -43,11 +42,7 @@ static NSString *const conditionCell = @"ConditionCell";
     [super viewDidLoad];
     self.navigationItem.title = @"贷款专区";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.sectionTitleArray = @[@"",@"申请条件",@"申请资料",@"审核及还款说明"];
-    self.conditionArray = @[@[],
-                            @[@"年龄20 -40 岁",@"手机号使用6个月以上",@"芝麻分500以上"],
-                            @[@"身份证",@"手机号",@"芝麻分"],
-                            @[@"芝麻分500以上，验证身份证及手机号通过率100%"]];
+
     [self.view addSubview:self.tableView];
     
     [self initUI];
@@ -90,7 +85,10 @@ static NSString *const conditionCell = @"ConditionCell";
 }
 
 - (void)applyLoan {
-    
+    if (self.model.applyUrl) {
+        WKWebViewController *vc = [[WKWebViewController alloc] initWithUrl:self.model.applyUrl];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -106,6 +104,9 @@ static NSString *const conditionCell = @"ConditionCell";
         } else if (indexPath.row == 1) {
             LoanDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCell forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [cell configureCell:self.model];
+            
             return cell;
         } else {
             GuideConditionCell *cell = [tableView dequeueReusableCellWithIdentifier:guideCell];
@@ -114,8 +115,7 @@ static NSString *const conditionCell = @"ConditionCell";
         }
     } else {
         ConditionCell *cell = [tableView dequeueReusableCellWithIdentifier:conditionCell forIndexPath:indexPath];
-        cell.titleLabel.text = self.conditionArray[indexPath.section][indexPath.row];
-        
+        cell.titleLabel.attributedText = [NSString setTextLineSpace:5 withString:self.model.applyInfo[indexPath.row] withFont:14];
         return cell;
     }
     
@@ -126,34 +126,62 @@ static NSString *const conditionCell = @"ConditionCell";
     if (section == 0) {
         return 3;
     } else {
-        return [self.conditionArray[section] count];
+        return self.model.applyInfo.count;
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         NSArray *heightArray = @[@"82",@"102",@"130"];
         
-        return [heightArray[indexPath.row] integerValue] * WIDTH_SCALE;
-    } else
-    return 35;
+        if (indexPath.row == 1) {
+            CGFloat maxWidth = SCREEN_WIDTH - 40;
+            NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin;
+            
+            CGSize size = [[NSString setTextLineSpace:5 withString:self.model.slogan withFont:14] boundingRectWithSize:CGSizeMake(maxWidth, 300) options:options context:nil].size;
+            
+            CGFloat height = size.height + 10;
+            
+            return height < 42 ? 102 : height + 70;
+            
+        } else {
+            return [heightArray[indexPath.row] integerValue] * WIDTH_SCALE;
+        }
+
+        
+    } else {
+        
+        CGFloat maxWidth = SCREEN_WIDTH - 40;
+        NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin ;
+        
+        CGSize size = [[NSString setTextLineSpace:10 withString:self.model.applyInfo[indexPath.row] withFont:14] boundingRectWithSize:CGSizeMake(maxWidth, 300) options:options context:nil].size;
+        
+        CGFloat height = size.height + 10;
+        
+        return height < 35 ? 35 : height;
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section != 0) {
+    if (section == 1) {
         return 44;
     }
-    return 0.f;
+    return 10;
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//    return CGFLOAT_MIN;
+//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section != 0) {
         SectionHeadView *view = [[SectionHeadView alloc] init];
-        view.titleLabel.text = self.sectionTitleArray[section];
+        view.titleLabel.text = @"申请事项";
         view.titleLabel.textColor = blackColor;
         return view;
     }

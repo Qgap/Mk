@@ -94,8 +94,7 @@
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick:)];
             [tap setNumberOfTapsRequired:1];
             [image addGestureRecognizer:tap];
-            tap.view.tag = 120 +i;
-            
+            tap.view.tag = baseTapTag +i;
             
             [image sd_setImageWithURL:[NSURL URLWithString:imgArray[i]] placeholderImage:[UIImage imageNamed:@"1.jpg"]];
             [self.adScroll addSubview:image];

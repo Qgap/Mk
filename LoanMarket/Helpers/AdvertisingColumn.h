@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSInteger baseTapTag = 120;
+
 @interface AdvertisingColumn : UIView
 
 @property (nonatomic, copy) void (^adImageClick)(UITapGestureRecognizer *tap);

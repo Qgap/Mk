@@ -10,4 +10,13 @@
 
 @implementation ProductDetailModel
 
+//+ (NSDictionary *)modelContainerPropertyGenericClass {
+//    return @{@"applyInfo":[ApplyInfoModel class]};
+//}
+
 @end
+
+//@implementation ApplyInfoModel
+//
+//
+//@end

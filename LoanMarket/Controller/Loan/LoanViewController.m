@@ -14,6 +14,7 @@
 #import "Request.h"
 #import "ProductModel.h"
 #import "DataCenter.h"
+#import "LoanAreaViewController.h"
 
 static NSString *const cellId = @"CELLID";
 static NSString *const typeDefaultString = @"贷款类型";
@@ -156,6 +157,12 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    ProductModel *model = self.dataArray[indexPath.row];
+    
+    LoanAreaViewController *vc = [[LoanAreaViewController alloc] initWithProductID:model.priductId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UI

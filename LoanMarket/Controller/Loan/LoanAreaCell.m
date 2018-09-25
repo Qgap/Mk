@@ -83,9 +83,7 @@
     
     self.markImageView.image = [UIImage imageNamed:@"subscript"];
     self.iconImageView.image = [UIImage imageNamed:@"apply_icon"];
-    self.titleLabel.text = @"胡歌最帅";
-    self.amountLabel.text = @"hu ge handsome";
-    self.peopleLabel.text = @"10000人";
+
 }
 
 - (void)configureCell:(ProductDetailModel *)model {
@@ -149,12 +147,23 @@
     
     for (int i = 0; i < iconArray.count; i ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:iconArray[i]]];
-//        [self.contentView addSubview:imageView];
+        [self.contentView addSubview:imageView];
         
-        imageView.frame = CGRectMake(26 * WIDTH_SCALE, 26, 50 * WIDTH_SCALE, 50*WIDTH_SCALE);
+        imageView.frame = CGRectMake(26 * WIDTH_SCALE + 91 * WIDTH_SCALE *i, 46, 50 * WIDTH_SCALE, 50*WIDTH_SCALE);
         
-        UIImageView *arrowImage = [[UIImageView alloc] init];
+//        UIImageView *arrowImage = [[UIImageView alloc] init];
+//        arrowImage.image = [UIImage imageNamed:@""];
 //        [self.contentView addSubview:arrowImage];
+        
+        UILabel *textLabel = [GQUIControl labelWithTextFont:Font14 textColor:blackColor textAlignment:NSTextAlignmentCenter];
+        textLabel.text = stepArray[i];
+        
+        [self.contentView addSubview:textLabel];
+        
+        [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(imageView.mas_centerX);
+            make.top.mas_equalTo(imageView.mas_bottom).offset(10);
+        }];
     }
 }
 
