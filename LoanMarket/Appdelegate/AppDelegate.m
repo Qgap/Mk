@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "DataCenter.h"
+#import <SVProgressHUD.h>
 
 @interface AppDelegate ()
 
@@ -25,6 +26,8 @@
     self.window.rootViewController = self.mainVC;
     
     [self.window makeKeyAndVisible];
+    
+    [SVProgressHUD setBackgroundColor:[UIColor colorWithWhite:.95 alpha:1]];
     
     if (![DataCenter sharedInstance].userToken ) {
         dispatch_main_sync_safe(^{

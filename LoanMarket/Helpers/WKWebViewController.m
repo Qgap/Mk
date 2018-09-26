@@ -30,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.wkWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
     self.wkWebView.navigationDelegate = self;
     self.wkWebView.UIDelegate = self;
@@ -41,7 +43,7 @@
     [self.wkWebView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:NULL];
     [self.wkWebView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
     
-    self.progressView = [[WebViewProgressView alloc] initWithFrame:CGRectMake(0,64, SCREEN_WIDTH, 2)];
+    self.progressView = [[WebViewProgressView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, 2)];
     
     [self.view addSubview:self.progressView];
 

@@ -16,6 +16,7 @@
 #import <SVProgressHUD.h>
 #import "Request.h"
 #import "DataCenter.h"
+#import "WKWebViewController.h"
 
 static CGFloat padding_Hor = 37;
 
@@ -23,7 +24,7 @@ static CGFloat padding_Ver = 20;
 
 static CGFloat lineHeight = 40;
 
-@interface RegisterViewController ()
+@interface RegisterViewController () <TTTAttributedLabelDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong)UIScrollView *mainScroll;
 @property (nonatomic, strong)UITextField *phoneText;
@@ -37,27 +38,65 @@ static CGFloat lineHeight = 40;
 @property (nonatomic, strong)UIButton *togoLoginBtn;
 
 @property (nonatomic, assign)NSInteger timeInterval;// 倒计时时间，默认60s
-
+@property (nonatomic, assign)NSInteger vcType;
 @end
 
 @implementation RegisterViewController
+
+- (id)initWithViewControllerType: (ViewControllerType)vcType {
+    if (self = [super initWithNibName:nil bundle:nil]) {
+        self.vcType = vcType;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.title = @"注册";
+     self.title = @"注册";
+    
+    if (!self.vcType) {
+        self.vcType = RegisterAcount;
+    }
+    
+    if (self.vcType == ForgetPwd) {
+        self.title = @"忘记密码";
+    }
     
     [self setupUI];
     
 }
 
 
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    WKWebViewController *vc = [[WKWebViewController alloc] initWithUrl:url.absoluteString];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"TTTAttributedLabel"]) {
+        
+        [self.view endEditing:YES];
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark - Button Action
 
 - (void)getCode {
-    NSLog(@"获取验证码");
+    
+    if (self.phoneText.text.length < 11) {
+        [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
+        return;
+    }
     self.timeInterval = 61;
     self.getCodeButton.enabled = NO;
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
@@ -113,7 +152,7 @@ static CGFloat lineHeight = 40;
 }
 
 - (void)registerAccount {
-    NSLog(@"注册");
+    
     if (![Validator isValidateMobile:self.phoneText.text]) {
         [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
     } else if (self.codeText.text.length <3) {
@@ -122,27 +161,28 @@ static CGFloat lineHeight = 40;
         [SVProgressHUD showInfoWithStatus:@"请输入密码"];
     } else if (![self.pwdText.text isEqualToString:self.secondPwdText.text]) {
         [SVProgressHUD showInfoWithStatus:@"两次密码不一致"];
+    } else if (!self.selectBtn.isSelected && self.vcType == RegisterAcount){
+        [SVProgressHUD showInfoWithStatus:@"请先阅读并同意用户注册协议"];
     } else {
-        [SVProgressHUD showInfoWithStatus:@"注册成功"];
+    
+        NSDictionary *params = @{@"phoneNo":self.phoneText.text,
+                                 @"verifyCode":self.codeText.text,
+                                 @"password":self.pwdText.text
+                                 };
+        
+        [SVProgressHUD show];
+        [Request postURL:registerURL params:params completion:^(BOOL success, id responseObject, NSError *error) {
+            [SVProgressHUD dismiss];
+            if (success) {
+                [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
+            } else {
+                [SVProgressHUD showInfoWithStatus:error.domain];
+            }
+        }];
     }
-    
-    NSDictionary *params = @{@"phoneNo":self.phoneText.text,
-                             @"verifyCode":self.codeText.text,
-                             @"password":self.pwdText.text
-                             };
-    
-    [SVProgressHUD show];
-    [Request postURL:registerURL params:params completion:^(BOOL success, id responseObject, NSError *error) {
-        [SVProgressHUD dismiss];
-        if (success) {
-            [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
-            [self dismissViewControllerAnimated:YES completion:^{
-                
-            }];
-        } else {
-            [SVProgressHUD showInfoWithStatus:error.domain];
-        }
-    }];
     
 }
 
@@ -165,7 +205,7 @@ static CGFloat lineHeight = 40;
 
 }
 
-#pragma mark - setupUI
+#pragma mark - UI init
 
 - (void)setupUI {
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -179,6 +219,7 @@ static CGFloat lineHeight = 40;
     [self.view addSubview:self.mainScroll];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyborad)];
+    tapGesture.delegate = self;
     [self.mainScroll addGestureRecognizer:tapGesture];
     
     self.phoneText = [self unitTextFieldPlaceHolder:@"请输入手机号"];
@@ -194,7 +235,7 @@ static CGFloat lineHeight = 40;
     self.getCodeButton = [GQUIControl buttonWithTitle:@"获取验证码"
                                            titleColor:[UIColor whiteColor]
                                              textFont:[UIFont systemFontOfSize:13]];
-    self.getCodeButton.enabled = NO;
+//    self.getCodeButton.enabled = NO;
     [self.getCodeButton setBackgroundImage:[UIImage createImageWithColor:grayColor] forState:UIControlStateDisabled];
     [self.getCodeButton setBackgroundImage:[UIImage createImageWithColor:orangeColor] forState:UIControlStateNormal];
     [self.getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
@@ -208,18 +249,23 @@ static CGFloat lineHeight = 40;
     
 
     self.licenseLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    
     self.licenseLabel.tintColor = grayColor;
     self.licenseLabel.font = [UIFont systemFontOfSize:12];
     self.licenseLabel.textColor = grayColor;
     self.licenseLabel.textAlignment = NSTextAlignmentLeft;
     
-    NSString *protocolName = @"《xxx协议》";
+    NSString *protocolName = @"《用户注册服务协议》";
     NSString *string = @"我已同意并阅读 ";
     NSMutableAttributedString *tipString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@",string,protocolName]];
     
     NSRange stringRange = NSMakeRange(string.length,protocolName.length);
-    NSURL *url = [NSURL URLWithString:@"https://www.baidu.com"];
+    NSURL *url = [NSURL URLWithString:registerHTML];
     [self.licenseLabel addLinkToURL:url withRange:stringRange];
+    
+    self.licenseLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.licenseLabel.delegate = self;
+    
     
     [tipString addAttribute:NSForegroundColorAttributeName
                       value:grayColor
@@ -303,6 +349,11 @@ static CGFloat lineHeight = 40;
         make.left.mas_equalTo(self.view.mas_left).offset(padding_Hor*WIDTH_SCALE);
         make.top.mas_equalTo(self.registerBtn.mas_bottom).offset(padding_Ver * WIDTH_SCALE);
     }];
+    
+    if (self.vcType == ForgetPwd) {
+        self.selectBtn.hidden = YES;
+        self.licenseLabel.hidden = YES;
+    }
 }
 
 - (UITextField *)unitTextFieldPlaceHolder:(NSString *)placeHolder {

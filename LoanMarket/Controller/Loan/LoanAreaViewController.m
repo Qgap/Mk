@@ -67,24 +67,12 @@ static NSString *const conditionCell = @"ConditionCell";
     }];
 }
 
-- (void)initUI {
-    
-    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 75, SCREEN_WIDTH, 75)];
-    self.bottomView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.bottomView];
-    
-    self.applyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.applyButton.frame = CGRectMake(60 * WIDTH_SCALE, 15 , SCREEN_WIDTH - 120 * WIDTH_SCALE, 45);
-    [self.applyButton setTitle:@"申请贷款" forState:UIControlStateNormal];
-    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.applyButton addTarget:self action:@selector(applyLoan) forControlEvents:UIControlEventTouchUpInside];
-    self.applyButton.backgroundColor = orangeColor;
-    self.applyButton.layer.cornerRadius = 5;
-    self.applyButton.titleLabel.font = Font18;
-    [self.bottomView addSubview:self.applyButton];
-}
-
 - (void)applyLoan {
+    
+    [Request postURL:trafficURL params:@{@"productId":self.model.productId,@"type":@"1"} completion:^(BOOL success, id responseObject, NSError *error) {
+        
+    }];
+    
     if (self.model.applyUrl) {
         WKWebViewController *vc = [[WKWebViewController alloc] initWithUrl:self.model.applyUrl];
         [self.navigationController pushViewController:vc animated:YES];
@@ -188,9 +176,11 @@ static NSString *const conditionCell = @"ConditionCell";
     return nil;
 }
 
+#pragma mark - UI Init
+
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 75) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - SafeAreaTopHeight) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -203,6 +193,23 @@ static NSString *const conditionCell = @"ConditionCell";
         [_tableView registerClass:[ConditionCell class] forCellReuseIdentifier:conditionCell];
     }
     return _tableView;
+}
+
+- (void)initUI {
+    
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 75 - SafeAreaBottomHeight, SCREEN_WIDTH, 75)];
+    self.bottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.bottomView];
+    
+    self.applyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.applyButton.frame = CGRectMake(60 * WIDTH_SCALE, 15 , SCREEN_WIDTH - 120 * WIDTH_SCALE, 45);
+    [self.applyButton setTitle:@"申请贷款" forState:UIControlStateNormal];
+    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.applyButton addTarget:self action:@selector(applyLoan) forControlEvents:UIControlEventTouchUpInside];
+    self.applyButton.backgroundColor = orangeColor;
+    self.applyButton.layer.cornerRadius = 5;
+    self.applyButton.titleLabel.font = Font18;
+    [self.bottomView addSubview:self.applyButton];
 }
 
 

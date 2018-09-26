@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,ViewControllerType) {
+    RegisterAcount,
+    ForgetPwd
+};
+
 @interface RegisterViewController : UIViewController
 
+- (id)initWithViewControllerType: (ViewControllerType)vcType;
 
 @end
 

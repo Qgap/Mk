@@ -41,11 +41,21 @@
 #define IPHONE_5    SCREEN_HEIGHT == 568.0f
 #define IPHONE_6    SCREEN_HEIGHT == 667.0f
 #define IPHONE_6P   SCREEN_HEIGHT == 736.0f
+#define IPHONE_X  SCREEN_HEIGHT == 812.0f
+
+#define SafeAreaTopHeight (SCREEN_HEIGHT == 812.0 ? 88 : 64)
+#define SafeAreaBottomHeight (SCREEN_HEIGHT == 812.0 ? 34 : 0)
 
 
 
-#define null(string) (isEmptyStr(string)?@"":string)
-#define nullStr(string,defaultString) (isEmptyStr(string) ? defaultString : string)
+//#define null(string) (isEmptyStr(string)?@"":string)
+//#define nullStr(string,defaultString) (isEmptyStr(string) ? defaultString : string)
+//
+//#define isNull(string) ([AppUtils isEmptyString:string])
+//
+//#define isEmptyStr(string) ([AppUtils isEmptyString:string])
+//#define isNotEmptyStr(string) (![AppUtils isEmptyString:string])
+
 #define WS(weakSelf,self)  __weak __typeof(&*self)weakSelf = self;
 
 

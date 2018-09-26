@@ -54,10 +54,112 @@
     [self initUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self clearTextField];
+}
+
+#pragma mark - Button action
+
 - (void)registerAction {
     RegisterViewController *registerVC = [[RegisterViewController alloc] init];
     [self.navigationController pushViewController:registerVC animated:YES];
 }
+
+
+- (void)pwdLoginAction {
+    
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        CGRect originFrame = self.slideView.frame;
+        originFrame.origin.x = (SCREEN_WIDTH / 2.0 - 110*WIDTH_SCALE) / 2.0;
+        self.slideView.frame = originFrame;
+        
+        self.codeView.hidden = YES;
+        self.passwdView.hidden = NO;
+        
+    } completion:^(BOOL finished) {
+        [self clearTextField];
+    }];
+}
+
+- (void)codeLoginAction {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect originFrame = self.slideView.frame;
+        originFrame.origin.x = SCREEN_WIDTH / 2.0 + (SCREEN_WIDTH / 2.0 - 110*WIDTH_SCALE) / 2.0;
+        self.slideView.frame = originFrame;
+        self.codeView.hidden = NO;
+        self.passwdView.hidden = YES;
+        
+    } completion:^(BOOL finished) {
+        [self clearTextField];
+    }];
+    
+}
+
+- (void)getCode {
+    
+    if (self.phoneText.text.length < 11) {
+        [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
+        return;
+    }
+    
+    self.timeInterval = 61;
+    self.getCodeBtn.enabled = NO;
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
+    
+    [SVProgressHUD show];
+    
+    [Request postURL:getCodeURL params:@{@"phoneNo":self.codePhoneText.text} completion:^(BOOL success, id responseObject, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (success) {
+            [SVProgressHUD showSuccessWithStatus:@"验证码发送成功"];
+        }
+    }];
+}
+
+- (void)forgetPwd {
+    RegisterViewController *registerVC = [[RegisterViewController alloc] initWithViewControllerType:ForgetPwd];
+
+    [self.navigationController pushViewController:registerVC animated:YES];
+}
+
+- (void)loginByPwd {
+    [SVProgressHUD show];
+    
+    [Request postURL:loginURL params:@{@"phoneNo":self.phoneText.text,@"password":self.pwdText.text} completion:^(BOOL success, id responseObject, NSError *error) {
+        
+        if (success) {
+            [SVProgressHUD dismiss];
+            [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        } else {
+            
+            [SVProgressHUD showInfoWithStatus:error.domain];
+            
+        }
+    }];
+}
+
+- (void)loginByCode {
+    [SVProgressHUD show];
+    
+    [Request postURL:checkCodeURL params:@{@"phoneNo":self.codePhoneText.text,@"verifyCode":self.codeText.text} completion:^(BOOL success, id responseObject, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (success) {
+            [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }
+    }];
+}
+
+#pragma mark - UI
 
 - (void)initUI {
     
@@ -95,12 +197,14 @@
         make.height.mas_equalTo(@32);
     }];
   
-    [self.slideView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.pwdLogin.mas_bottom).offset(3);
-        make.width.mas_equalTo(110*WIDTH_SCALE);
-        make.height.mas_equalTo(2);
-        make.centerX.mas_equalTo(self.pwdLogin.mas_centerX);
-    }];
+    self.slideView.frame = CGRectMake((SCREEN_WIDTH / 2.0 - 110*WIDTH_SCALE) / 2.0, 75, 110*WIDTH_SCALE,  2);
+    
+//    [self.slideView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.pwdLogin.mas_bottom).offset(3);
+//        make.width.mas_equalTo(110*WIDTH_SCALE);
+//        make.height.mas_equalTo(2);
+//        make.centerX.mas_equalTo(self.pwdLogin.mas_centerX);
+//    }];
   
     self.passwdView = [[UIView alloc] init];
     [self.view addSubview:self.passwdView];
@@ -265,98 +369,7 @@
     self.codeView.hidden = YES;
 }
 
-- (void)forgetPwd {
-    NSLog(@"forget pwd ");
-}
-
-- (void)loginByPwd {
-    [SVProgressHUD show];
-    
-    [Request postURL:loginURL params:@{@"phoneNo":self.phoneText.text,@"password":self.pwdText.text} completion:^(BOOL success, id responseObject, NSError *error) {
-        
-        if (success) {
-            [SVProgressHUD dismiss];
-            [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
-            [self dismissViewControllerAnimated:YES completion:^{
-                
-            }];
-        } else {
-            
-            [SVProgressHUD showInfoWithStatus:error.domain];
-            
-        }
-    }];
-}
-
-- (void)loginByCode {
-    [SVProgressHUD show];
-    
-    [Request postURL:checkCodeURL params:@{@"phoneNo":self.codePhoneText.text,@"verifyCode":self.codeText.text} completion:^(BOOL success, id responseObject, NSError *error) {
-        [SVProgressHUD dismiss];
-        if (success) {
-            [[DataCenter sharedInstance] loginSuccessedWithData:responseObject[@"data"]];
-            [self dismissViewControllerAnimated:YES completion:^{
-                
-            }];
-        }
-    }];
-}
-
-- (void)pwdLoginAction {
-    
-
-    [UIView animateWithDuration:0.5 animations:^{
-
-        CGRect originFrame = self.slideView.frame;
-        originFrame.origin.x = (SCREEN_WIDTH / 2.0 - 110*WIDTH_SCALE) / 2.0;
-        self.slideView.frame = originFrame;
-        
-        self.codeView.hidden = YES;
-        self.passwdView.hidden = NO;
-
-        
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
-- (void)codeLoginAction {
-  
-    [UIView animateWithDuration:0.5 animations:^{
-        CGRect originFrame = self.slideView.frame;
-        originFrame.origin.x = SCREEN_WIDTH / 2.0 + (SCREEN_WIDTH / 2.0 - 110*WIDTH_SCALE) / 2.0;
-        self.slideView.frame = originFrame;
-        self.codeView.hidden = NO;
-        self.passwdView.hidden = YES;
-        
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-   
-
-}
-
-- (void)getCode {
-    
-    if (self.phoneText.text.length < 11) {
-        [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
-        return;
-    }
-    
-    self.timeInterval = 61;
-    self.getCodeBtn.enabled = NO;
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
-    
-    [SVProgressHUD show];
-    
-    [Request postURL:getCodeURL params:@{@"phoneNo":self.codePhoneText.text} completion:^(BOOL success, id responseObject, NSError *error) {
-        [SVProgressHUD dismiss];
-        if (success) {
-            [SVProgressHUD showSuccessWithStatus:@"验证码发送成功"];
-        }
-    }];
-}
+#pragma mark - Function
 
 - (void)countDown:(NSTimer *)timer {
     self.timeInterval -= 1;
@@ -376,6 +389,13 @@
         });
         
     }
+}
+
+- (void)clearTextField {
+    self.pwdText.text = @"";
+    self.codePhoneText.text = @"";
+    self.phoneText.text = @"";
+    self.codeText.text = @"";
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

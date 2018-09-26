@@ -16,5 +16,6 @@
 #import "Header.h"
 #import "GQUIControl.h"
 #import "UIConstants.h"
+#import "AppUtils.h"
 
 #endif

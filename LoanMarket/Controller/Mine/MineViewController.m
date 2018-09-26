@@ -12,6 +12,11 @@
 #import "DataCenter.h"
 #import "LoginViewController.h"
 #import "AppDelegate.h"
+#import "WKWebViewController.h"
+#import "UIImage+Category.h"
+#import "Request.h"
+#import "UserInfoModel.h"
+#import <UIImageView+WebCache.h>
 
 static NSString *const cellId = @"CELLID";
 
@@ -39,6 +44,8 @@ static CGFloat headHeight = 278;
 
 @property (nonatomic, strong)UILabel *phoneLabel;
 
+@property (nonatomic,strong) UserInfoModel *userModel;
+
 //@property (nonatomic, strong)UIButton *loginOutBtn;
 
 @end
@@ -53,15 +60,48 @@ static CGFloat headHeight = 278;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    self.dataArray = @[@[@{@"image":@"card_mine",@"title":@"我要办卡",actionName:kBank},
-                       @{@"image":@"loan_mine",@"title":@"我要贷款",actionName:kLoan},
-                       @{@"image":@"raise_mine",@"title":@"我要提额",actionName:kRaiseAmount}],
-                       @[@{@"image":@"guide_mine",@"title":@"新手指南",actionName:kGuide},
-                         @{@"image":@"service_mine",@"title":@"我的客服",actionName:kService}]
-                       ];
+//    self.dataArray = @[@[@{@"image":@"card_mine",@"title":@"我要办卡",actionName:kBank},
+//                       @{@"image":@"loan_mine",@"title":@"我要贷款",actionName:kLoan},
+//                       @{@"image":@"raise_mine",@"title":@"我要提额",actionName:kRaiseAmount}],
+//                       @[@{@"image":@"guide_mine",@"title":@"新手指南",actionName:kGuide},
+//                         @{@"image":@"service_mine",@"title":@"我的客服",actionName:kService}]
+//                       ];
+
     
+    self.dataArray = @[@[@{@"image":@"card_mine",@"title":@"我要办卡",actionName:kBank},
+                         @{@"image":@"loan_mine",@"title":@"我要贷款",actionName:kLoan}
+                         ],
+                       @[
+                         @{@"image":@"service_mine",@"title":@"关于我们",actionName:kAbountUs}]
+                       ];
+
     
     [self.view addSubview:self.tableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [Request postURL:userInfoURL params:nil completion:^(BOOL success, id responseObject, NSError *error) {
+        if (success) {
+            self.userModel = [UserInfoModel yy_modelWithDictionary:responseObject[@"data"]];
+            
+            dispatch_main_sync_safe(^{
+                self.nameLabel.text = nullStr(self.userModel.userName, @"");
+                self.phoneLabel.text = nullStr(self.userModel.phoneNo, @"");
+                [self.avatarImage sd_setImageWithURL:[NSURL URLWithString:self.userModel.iconUrl] placeholderImage:[UIImage imageNamed:@"help_center"]];
+            });
+        }
+    }];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:themeColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
 }
 
 - (UITableView *)tableView {
@@ -203,6 +243,10 @@ static CGFloat headHeight = 278;
         
     } else if ([action isEqualToString:kBank]) {
         appdelegate.mainVC.selectedIndex = 2;
+    } else if ([action isEqualToString:kAbountUs]) {
+        WKWebViewController *vc = [[WKWebViewController alloc] initWithUrl:aboutUsHTML];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

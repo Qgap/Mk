@@ -63,11 +63,15 @@ typedef NS_ENUM(NSInteger,SectionType) {
     
 }
 
+#pragma mark - Load Data
+
 - (void)loadRequest {
+    [SVProgressHUD show];
     
     [Request postURL:bannaerURL params:nil completion:^(BOOL success, id responseObject, NSError *error) {
          NSLog(@"banner :%@",responseObject);
         if (success) {
+            
             self.bannerModelArray = [NSArray yy_modelArrayWithClass:[BannerModel class] json:responseObject[@"data"]];
             
             NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:10];
@@ -86,6 +90,7 @@ typedef NS_ENUM(NSInteger,SectionType) {
     [Request postURL:noticeURL params:nil completion:^(BOOL success, id responseObject, NSError *error) {
         NSLog(@"response :%@",responseObject);
         if (success) {
+            
             NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:10];
             
             for (NSDictionary *dic in responseObject[@"data"]) {
@@ -98,14 +103,21 @@ typedef NS_ENUM(NSInteger,SectionType) {
         }
     }];
     
+    
     [Request postURL:productTypeList params:@{@"showType":@"1"} completion:^(BOOL success, id responseObject, NSError *error) {
-        NSLog(@"response :%@",responseObject);
+        
         if (success) {
+            [SVProgressHUD dismiss];
+            
             self.productArray = [NSArray yy_modelArrayWithClass:[ProductModel class] json:responseObject[@"data"]];
             [self.tableView reloadData];
+        } else {
+            [SVProgressHUD showInfoWithStatus:error.domain];
         }
     }];
 }
+
+#pragma mark - UITapGestureRecognizer Action
 
 - (void)adImageClick:(UITapGestureRecognizer *)sender {
     NSInteger tag = sender.view.tag - baseTapTag;
@@ -114,6 +126,8 @@ typedef NS_ENUM(NSInteger,SectionType) {
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+#pragma mark - UITableViewDelegate && UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -219,17 +233,26 @@ typedef NS_ENUM(NSInteger,SectionType) {
     
 }
 
+#pragma mark - UI init
+
 - (void)initUI {
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIApplicationBackgroundFetchIntervalNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - SafeAreaTopHeight - SafeAreaBottomHeight - 49) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedRowHeight = 0;
     [self.tableView registerClass:[HomeLoanCell class] forCellReuseIdentifier:HotLoanCell];
     [self.tableView registerClass:[AunounceCell class] forCellReuseIdentifier:AnuounceCell];
     [self.tableView registerClass:[LoanTypeCell class] forCellReuseIdentifier:LoanTypeCellID];

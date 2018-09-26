@@ -83,6 +83,10 @@ static NSString *const cellId = @"CardListCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     CardListModel *model = self.dataArray[indexPath.row];
+    
+    [Request postURL:trafficURL params:@{@"productId":model.bankId,@"type":@"2"} completion:^(BOOL success, id responseObject, NSError *error) {
+    }];
+    
     WKWebViewController *vc = [[WKWebViewController alloc] initWithUrl:model.bankUrl];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

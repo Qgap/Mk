@@ -23,4 +23,9 @@
 #define noticeURL       @"/msg/findNotice"
 #define bannaerURL      @"/msg/findBanner"
 
+#define trafficURL      @"/product/productTraffic"
+
+#define aboutUsHTML     @"http://47.98.48.13:8080/loanmarket-admin/H5/aboutUs"
+#define registerHTML    @"http://47.98.48.13:8080/loanmarket-admin/H5/agreement"
+
 #endif /* URLContants_h */

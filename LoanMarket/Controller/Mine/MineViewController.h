@@ -15,6 +15,7 @@ static NSString *const kLoan = @"HQLoan";
 static NSString *const kRaiseAmount = @"HQRaiseAmount";
 static NSString *const kGuide = @"HQGuide";
 static NSString *const kService = @"HQService";
+static NSString *const kAbountUs = @"HQAboutUs";
 
 @interface MineViewController : UIViewController
 
