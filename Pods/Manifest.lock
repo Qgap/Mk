@@ -26,6 +26,7 @@ PODS:
   - SVProgressHUD (1.1.3)
   - SystemServices (2.0.1)
   - TTTAttributedLabel (2.0.0)
+  - WebViewJavascriptBridge (6.0.3)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - SVProgressHUD
   - SystemServices
   - TTTAttributedLabel
+  - WebViewJavascriptBridge
   - YYModel
 
 SPEC REPOS:
@@ -55,6 +57,7 @@ SPEC REPOS:
     - SVProgressHUD
     - SystemServices
     - TTTAttributedLabel
+    - WebViewJavascriptBridge
     - YYModel
 
 SPEC CHECKSUMS:
@@ -69,8 +72,9 @@ SPEC CHECKSUMS:
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   SystemServices: 7af348493ece8951449b476c41532df72569b181
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 43f748f5e88a5e365d83d5f2b2c82bf9ce6cfd9b
+PODFILE CHECKSUM: a45d9b2724416d99fec753176da6361481ea9622
 
 COCOAPODS: 1.5.0

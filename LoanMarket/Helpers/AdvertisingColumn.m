@@ -96,7 +96,7 @@
             [image addGestureRecognizer:tap];
             tap.view.tag = baseTapTag +i;
             
-            [image sd_setImageWithURL:[NSURL URLWithString:imgArray[i]] placeholderImage:[UIImage imageNamed:@"1.jpg"]];
+            [image sd_setImageWithURL:[NSURL URLWithString:imgArray[i]] placeholderImage:nil];
             [self.adScroll addSubview:image];
         }
         

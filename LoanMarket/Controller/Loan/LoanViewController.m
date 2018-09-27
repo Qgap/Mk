@@ -79,13 +79,13 @@ typedef NS_ENUM (NSInteger, sortMethod)  {
     NSString *sortType = @"";
     NSString *loanType = @"";
     if ([self.sortLabel.text isEqualToString:sortDefaultString]) {
-        sortType = @"金额正序";
+        sortType = @"";
     } else {
         sortType = self.sortLabel.text;
     }
     
     if ([self.typeLabel.text isEqualToString:typeDefaultString]) {
-        loanType = @"身份证贷";
+        loanType = @"";
     } else {
         loanType = self.typeLabel.text;
     }

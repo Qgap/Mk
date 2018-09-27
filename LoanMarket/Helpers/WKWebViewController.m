@@ -9,12 +9,15 @@
 #import "WKWebViewController.h"
 #import <WebKit/WebKit.h>
 #import "WebViewProgressView.h"
+#import <WKWebViewJavascriptBridge.h>
+
 
 @interface WKWebViewController ()<WKNavigationDelegate,WKUIDelegate>
 
 @property(nonatomic,strong)WKWebView *wkWebView;
 @property(nonatomic,strong)NSString *urlStr;
 @property(nonatomic,strong)WebViewProgressView *progressView;
+@property(nonatomic,strong)WKWebViewJavascriptBridge *bridge;
 @end
 
 @implementation WKWebViewController
@@ -49,7 +52,17 @@
 
     [self cleanCacheAndCookie];
     
+    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.wkWebView];
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+    
 
+    NSDictionary *params = @{@"appVersion":app_Version,@"appBuild":app_build};
+    [self.bridge callHandler:@"systemInfo" data:params responseCallback:^(id responseData) {
+        
+    }];
 
     
 }
@@ -68,14 +81,19 @@
 
 - (void)cleanCacheAndCookie{
     
-    NSArray *typesArray =@[WKWebsiteDataTypeMemoryCache,WKWebsiteDataTypeDiskCache]; // 9.0之后才有的
-    
-    NSSet *types = [NSSet setWithArray:typesArray];
-    NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
-    
-    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:types modifiedSince:dateFrom completionHandler:^{
+    if (@available(iOS 9.0, *)) {
+        NSArray *typesArray =@[WKWebsiteDataTypeMemoryCache,WKWebsiteDataTypeDiskCache]; // 9.0之后才有的
         
-    }];
+        NSSet *types = [NSSet setWithArray:typesArray];
+        NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+        
+        [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:types modifiedSince:dateFrom completionHandler:^{
+            
+        }];
+    } else {
+        // Fallback on earlier versions
+    }
+    
 }
 
 - (void)dealloc {

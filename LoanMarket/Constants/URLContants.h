@@ -9,7 +9,9 @@
 #ifndef URLContants_h
 #define URLContants_h
 
-#define domainURL @"http://47.98.48.13:8080/loanmarket-entry"
+
+
+#define domainURL @"http://www.huaq666.com/loanmarket-entry"
 
 #define registerURL     @"/login/register"
 #define loginURL        @"/login/checkPassword"
@@ -25,7 +27,7 @@
 
 #define trafficURL      @"/product/productTraffic"
 
-#define aboutUsHTML     @"http://47.98.48.13:8080/loanmarket-admin/H5/aboutUs"
-#define registerHTML    @"http://47.98.48.13:8080/loanmarket-admin/H5/agreement"
+#define aboutUsHTML     @"http://www.huaq666.com/loanmarket-admin/H5/aboutUs"
+#define registerHTML    @"http://www.huaq666.com/loanmarket-admin/H5/agreement"
 
 #endif /* URLContants_h */

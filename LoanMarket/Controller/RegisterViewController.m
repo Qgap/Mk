@@ -93,7 +93,7 @@ static CGFloat lineHeight = 40;
 
 - (void)getCode {
     
-    if (self.phoneText.text.length < 12) {
+    if (self.phoneText.text.length < 11) {
         [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
         return;
     }
