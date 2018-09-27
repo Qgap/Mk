@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - Bugly (2.5.0)
   - IQKeyboardManager (3.3.7)
   - Masonry (0.6.4)
   - pop (1.0.10)
@@ -29,6 +30,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - Bugly
   - IQKeyboardManager (~> 3.0)
   - Masonry
   - pop
@@ -43,6 +45,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - Bugly
     - IQKeyboardManager
     - Masonry
     - pop
@@ -56,6 +59,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
@@ -67,6 +71,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 60d9e4fbebba90bf2f17322ba75ca3d9cf04c1c2
+PODFILE CHECKSUM: 43f748f5e88a5e365d83d5f2b2c82bf9ce6cfd9b
 
 COCOAPODS: 1.5.0

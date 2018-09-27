@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "DataCenter.h"
 #import <SVProgressHUD.h>
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 
@@ -37,6 +38,7 @@
         
     }
     
+    [Bugly startWithAppId:@"ca0dd9260c"];
     return YES;
 }
 

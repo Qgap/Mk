@@ -11,6 +11,6 @@ pod 'pop'
 pod 'TTTAttributedLabel'
 pod 'Reveal-SDK’,'~>4.0', :configurations => ['Debug']
 pod 'SystemServices'
-
+pod 'Bugly'
 end
 

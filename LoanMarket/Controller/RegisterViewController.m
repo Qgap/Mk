@@ -93,7 +93,7 @@ static CGFloat lineHeight = 40;
 
 - (void)getCode {
     
-    if (self.phoneText.text.length < 11) {
+    if (self.phoneText.text.length < 12) {
         [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
         return;
     }
@@ -157,7 +157,7 @@ static CGFloat lineHeight = 40;
         [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
     } else if (self.codeText.text.length <3) {
         [SVProgressHUD showInfoWithStatus:@"请输入验证码"];
-    } else if (self.pwdText.text.length < 6) {
+    } else if (self.pwdText.text.length < 3) {
         [SVProgressHUD showInfoWithStatus:@"请输入密码"];
     } else if (![self.pwdText.text isEqualToString:self.secondPwdText.text]) {
         [SVProgressHUD showInfoWithStatus:@"两次密码不一致"];

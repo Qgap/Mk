@@ -96,12 +96,11 @@
     } completion:^(BOOL finished) {
         [self clearTextField];
     }];
-    
 }
 
 - (void)getCode {
     
-    if (self.phoneText.text.length < 11) {
+    if (self.phoneText.text.length < 12) {
         [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号"];
         return;
     }

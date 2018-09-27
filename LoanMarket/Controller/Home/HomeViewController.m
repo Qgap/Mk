@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger,SectionType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"乐贷超市";
+    self.navigationItem.title = @"花钱666";
     
     self.dataArray = [NSMutableArray arrayWithCapacity:10];
     
