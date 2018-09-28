@@ -35,7 +35,7 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.wkWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
+    self.wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - SafeAreaTopHeight)];
     self.wkWebView.navigationDelegate = self;
     self.wkWebView.UIDelegate = self;
     [self.view addSubview:self.wkWebView];
