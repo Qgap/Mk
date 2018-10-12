@@ -36,8 +36,6 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - SafeAreaTopHeight)];
-    self.wkWebView.navigationDelegate = self;
-    self.wkWebView.UIDelegate = self;
     [self.view addSubview:self.wkWebView];
     
     NSURL *url = [NSURL URLWithString:self.urlStr];
@@ -53,16 +51,18 @@
     [self cleanCacheAndCookie];
     
     self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.wkWebView];
-    
+
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
-    
 
     NSDictionary *params = @{@"appVersion":app_Version,@"appBuild":app_build};
     [self.bridge callHandler:@"systemInfo" data:params responseCallback:^(id responseData) {
-        
+
     }];
+    
+    self.wkWebView.navigationDelegate = self;
+    self.wkWebView.UIDelegate = self;
 
     
 }
@@ -76,6 +76,19 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    
+}
+
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSString *url = navigationAction.request.URL.absoluteString;
+    
+    if ([url hasPrefix:@"itms-services"]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
     
 }
 
